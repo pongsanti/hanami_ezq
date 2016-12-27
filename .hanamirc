@@ -1,0 +1,4 @@
+project=hanami_ezq
+architecture=container
+test=minitest
+template=erb

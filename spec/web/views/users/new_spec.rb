@@ -18,12 +18,25 @@ describe Web::Views::Users::Create do
   let(:view)      { Web::Views::Users::Create.new(template, exposures) }
   let(:rendered)  { view.render }
 
-  it 'displays list of errors when params contains errors' do
-    params.valid? # trigger validations
-
-    rendered.must_include('There was a problem with your submission')
-    rendered.must_include('Email is missing')
-    rendered.must_include('Password is missing')
-    rendered.must_include('Password Confirmation is missing')
+  describe 'with valid params' do
+    it 'displays sign up form' do
+      rendered.must_match('user[email]')
+      rendered.must_match('user[password]')
+      rendered.must_match('user[password_confirmation]')
+    end
   end
+
+  describe 'with invalid params' do
+    it 'displays list of errors when params contains errors' do
+      params.valid? # trigger validations
+
+      rendered.must_include('There was a problem with your submission')
+      rendered.must_include('Email is missing')
+      rendered.must_include('Password is missing')
+      rendered.must_include('Password Confirmation is missing')
+    end
+  end
+  
 end
+
+

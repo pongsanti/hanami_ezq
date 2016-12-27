@@ -1,1 +1,24 @@
 <h2>Sign up</h2>
+
+<%=
+  form_for :user, routes.new_user_path do
+    div class: 'input' do
+      label      :email
+      text_field :email
+    end
+
+    div class: 'input' do
+      label      :password
+      text_field :password
+    end
+
+    div class: 'input' do
+      label      :confirm_password
+      text_field :confirm_password
+    end
+
+    div class: 'controls' do
+      submit 'Sign up'
+    end
+  end
+%>

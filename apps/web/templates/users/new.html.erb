@@ -1,5 +1,16 @@
 <h2>Sign up</h2>
 
+<% unless params.valid? %>
+  <div class="errors">
+    <h3>There was a problem with your submission</h3>
+    <ul>
+      <% params.error_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%=
   form_for :user, routes.users_path do
     div class: 'input' do
@@ -13,8 +24,8 @@
     end
 
     div class: 'input' do
-      label      :confirm_password
-      text_field :confirm_password
+      label      :password_confirmation
+      text_field :password_confirmation
     end
 
     div class: 'controls' do

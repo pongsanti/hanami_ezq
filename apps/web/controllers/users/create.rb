@@ -14,15 +14,11 @@ module Web::Controllers::Users
     
     def call(params)
       if params.valid?
-        password_salt = BCrypt::Engine.generate_salt
-        params[:user][:password_salt] = password_salt
-
-        password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
-        params[:user][:password_hash] = password_hash
+        params[:user][:password_hash] = BCrypt::Password.create(params[:user][:password])
 
         @user = UserRepository.new.create(params[:user])
 
-        redirect_to routes.new_user_path
+        redirect_to routes.work_path
       else
         self.status = 422
       end

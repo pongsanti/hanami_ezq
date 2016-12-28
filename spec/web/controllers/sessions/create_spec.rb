@@ -17,16 +17,9 @@ describe Web::Controllers::Sessions::Create do
       user_create_action.call(local_params)
 
       user = UserRepository.new.by_email('johny@gmail.com')[0]
-      p user.password_hash 
-      p user.password_salt
-      p params[:session][:password]
     end
 
-    after do
-      UserRepository.new.clear
-    end
-
-    it 'is successful' do
+    it 'logs user in' do
       response = action.call(params)
       
       user_id = action.session[:user_id]

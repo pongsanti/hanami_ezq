@@ -16,7 +16,6 @@ describe Web::Controllers::Users::Create do
       action.call(params)
 
       action.user.id.wont_be_nil
-      action.user.password_salt.wont_be_nil
       action.user.password_hash.wont_be_nil
     end
 
@@ -24,7 +23,6 @@ describe Web::Controllers::Users::Create do
       response = action.call(params)
 
       response[0].must_equal 302
-      skip('this path will be available soon')
       response[1]['Location'].must_equal '/auth'
     end    
 

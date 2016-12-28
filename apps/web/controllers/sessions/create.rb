@@ -5,14 +5,17 @@ module Web::Controllers::Sessions
     def call(params)
 
       email = params[:session][:email]
-      password = params[:session][:password]
+      param_password = params[:session][:password]
       @user = UserRepository.new.by_email(email)[0]
 
-      #if @user && @user.password_hash == BCrypt::Engine.hash_secret(password, @user.password_salt)
-      #  session[:user_id] = @user.id
-      #else
+      user_hash = BCrypt::Password.new(@user.password_hash) if @user
+      if user_hash == param_password
+        session[:user_id] = @user.id
 
-      #end
+        redirect_to routes.work_path
+      else
+        self.status = 422
+      end
     end
   end
 end

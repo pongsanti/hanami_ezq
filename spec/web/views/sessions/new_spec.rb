@@ -19,8 +19,8 @@ describe Web::Views::Sessions::New do
 
   describe 'with valid params' do
     it 'displays login form' do
-      rendered.must_match('session[email]')
-      rendered.must_match('session[password]')
+      rendered.must_match(/input type="text".*name="session\[email\]/)
+      rendered.must_match(/input type="password".*name="session\[password\]/)
     end
   end
 

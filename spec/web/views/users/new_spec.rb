@@ -20,9 +20,9 @@ describe Web::Views::Users::Create do
 
   describe 'with valid params' do
     it 'displays sign up form' do
-      rendered.must_match('user[email]')
-      rendered.must_match('user[password]')
-      rendered.must_match('user[password_confirmation]')
+      rendered.must_match(/input type="text".*name="user\[email\]/)
+      rendered.must_match(/input type="password".*name="user\[password\]/)
+      rendered.must_match(/input type="password".*name="user\[password_confirmation\]/)
     end
   end
 

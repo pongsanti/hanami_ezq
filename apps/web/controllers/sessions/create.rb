@@ -10,19 +10,11 @@ module Web::Controllers::Sessions
     end
 
     def call(params)
-
-      email = params[:session][:email]
-      param_password = params[:session][:password]
-      @user = UserRepository.new.by_email(email)[0]
-      user_hash = BCrypt::Password.new(@user.password_hash) if @user
-      
-      if user_hash && param_password && user_hash == param_password
-        session[:user_id] = @user.id
-
+      if params.valid?
+        params.env['warden'].authenticate!
         redirect_to routes.work_path
-      else
-        self.status = 422
       end
+      self.status = 422
     end
   end
 end

@@ -3,7 +3,9 @@
 #
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
-resources :sessions, only: [:new, :create]
+
+get '/work', to: 'work#index'
+resources :sessions, only: [:new, :create, :destroy]
 resources :users, only: [:new, :create]
 
 namespace 'auth' do

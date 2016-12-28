@@ -11,6 +11,12 @@
   </div>
 <% end %>
 
+<% if params.env['warden'].message %>
+  <div class="errors">
+    <h3><%=params.env['warden'].message %></h3>
+  </div>
+<% end %>
+
 <%=
   form_for :session, routes.sessions_path do
     div class: 'input' do

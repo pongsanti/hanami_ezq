@@ -1,0 +1,8 @@
+<h2>Authorized area</h2>
+
+<h3><%= user.email %></h3>
+<%=
+  form_for :session, '/sessions/99', method: :delete do
+    submit 'Log out'
+  end
+%>

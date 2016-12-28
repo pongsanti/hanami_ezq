@@ -78,7 +78,10 @@ module Web
 
       # Configure Rack middleware for this application
       #
-      # middleware.use Rack::Protection
+      middleware.use Warden::Manager do |manager|
+        manager.default_strategies :password
+        manager.failure_app = Web::Controllers::Sessions::New.new
+      end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, default to :html

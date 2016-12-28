@@ -20,6 +20,7 @@ describe Web::Controllers::Sessions::Create do
     end
 
     it 'logs user in' do
+
       response = action.call(params)
       
       user_id = action.session[:user_id]
@@ -32,7 +33,20 @@ describe Web::Controllers::Sessions::Create do
   end
 
   describe 'with invalid params' do
-    let(:params) { Hash[session: { email: 'john@gmail.com', password: '1234abcd' }] }
+    let(:params) { Hash[session: {}] }
+
+    it 're-renders the sessions#new view' do
+      response = action.call(params)
+      response[0].must_equal 422
+    end
+    
+    it 'sets errors attribute accordingly' do
+      response = action.call(params)
+      response[0].must_equal 422
+    
+      action.params.errors[:session][:email].must_equal  ['is missing']
+      action.params.errors[:session][:password].must_equal  ['is missing']
+    end
   end
 
 end

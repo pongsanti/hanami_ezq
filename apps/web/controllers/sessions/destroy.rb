@@ -4,6 +4,8 @@ module Web::Controllers::Sessions
 
     def call(params)
       params.env['warden'].logout
+
+      redirect_to routes.new_session_path
     end
   end
 end

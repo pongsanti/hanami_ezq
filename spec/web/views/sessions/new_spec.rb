@@ -10,8 +10,12 @@ class NewSessionParams < Hanami::Action::Params
   end
 end
 
+class MyWarden
+  attr_accessor :message
+end
+
 describe Web::Views::Sessions::New do
-  let(:params)    { NewSessionParams.new(session: {}) }
+  let(:params)    { NewSessionParams.new(session: {}, 'warden' => MyWarden.new) }
   let(:exposures) { Hash[params: params] }
   let(:template)  { Hanami::View::Template.new('apps/web/templates/sessions/new.html.erb') }
   let(:view)      { Web::Views::Sessions::New.new(template, exposures) }

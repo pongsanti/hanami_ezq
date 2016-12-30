@@ -5,6 +5,7 @@ module Web::Controllers::Work
     expose :user
 
     def call(params)
+      params.env['warden'].authenticate!
       @user = params.env['warden'].user
     end
   end

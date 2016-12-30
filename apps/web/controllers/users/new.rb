@@ -3,6 +3,9 @@ module Web::Controllers::Users
     include Web::Action
 
     def call(params)
+      if params.env['warden'].authenticate?
+        redirect_to routes.work_path
+      end
     end
   end
 end

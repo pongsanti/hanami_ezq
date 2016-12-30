@@ -8,7 +8,10 @@ end
 
 Warden::Strategies.add(:password) do 
   def valid?
-    params['session']['email'] && params['session']['password']
+    if params['session']
+      return params['session']['email'] && params['session']['password']
+    end
+    return false
   end
   
   def authenticate!

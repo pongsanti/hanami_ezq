@@ -1,32 +1,28 @@
 require 'spec_helper'
 require_relative '../../../../apps/web/controllers/sessions/create'
 
-# mock warden
-class MyWarden
-  attr_accessor :count
-  def initialize
-    self.count = 0
+warden = Object.new
+warden.instance_eval do
+  def count
+    @count
   end
-
   def authenticate!
-    self.count = self.count + 1
+    @count = 1
   end
 end
-
-myWarden = MyWarden.new
 
 describe Web::Controllers::Sessions::Create do
   let(:action) { Web::Controllers::Sessions::Create.new }
 
   describe 'with valid params' do
     let(:params) { Hash[session: { email: 'johny@gmail.com', password: '1234abcd' },
-    'warden' => myWarden ] }
+    'warden' => warden ] }
 
     it 'logs user in' do
 
       response = action.call(params)
       
-      myWarden.count.must_equal 1
+      warden.count.must_equal 1
       response[0].must_equal 302
       response[1]['Location'].must_equal '/auth'
     end

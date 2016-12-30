@@ -1,0 +1,23 @@
+{
+  "name": "hanami_ezq",
+  "version": "1.0.0",
+  "description": "* Ruby: v2.3.0 * Hanami: v0.9.2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pongsanti/hanami_ezq.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pongsanti/hanami_ezq/issues"
+  },
+  "homepage": "https://github.com/pongsanti/hanami_ezq#readme",
+  "dependencies": {
+    "socket.io": "^1.7.2"
+  }
+}

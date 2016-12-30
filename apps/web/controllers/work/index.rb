@@ -1,12 +1,12 @@
 module Web::Controllers::Work
   class Index
     include Web::Action
+    include Web::Authentication
 
     expose :user
 
     def call(params)
-      params.env['warden'].authenticate!
-      @user = params.env['warden'].user
+      @user = current_user
     end
   end
 end

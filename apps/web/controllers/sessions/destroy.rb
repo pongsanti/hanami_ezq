@@ -1,9 +1,10 @@
 module Web::Controllers::Sessions
   class Destroy
     include Web::Action
+    include Web::Authentication
 
     def call(params)
-      params.env['warden'].logout
+      warden.logout
 
       redirect_to routes.new_session_path
     end

@@ -3,6 +3,8 @@ require_relative '../../../../apps/web/controllers/sessions/destroy'
 
 warden = Object.new
 warden.instance_eval do
+  def authenticate!; end
+  def user; end
   def count; @count; end
   def logout; @count = 1; end
 end

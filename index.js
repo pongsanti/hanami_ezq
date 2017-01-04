@@ -1,29 +1,28 @@
 //var http = require('http')
 require('dotenv').config({path: '.env.development'})
-let decode = require('./ws/racksession/decoder')
-
+var unescape = require('./ws/unescape');
+var cookieParser = require('./ws/cookie_parser');
+var decode = require('./ws/decoder');
 
 var Server = require('socket.io')
-var Cookie = require('cookie');
 var io = new Server(3000)
 
 io.on('connection', function (socket) {
-  secret = process.env.WEB_SESSIONS_SECRET
-  console.log(secret)
-  
   console.log(`a user connected: ${socket.id}`)
+  secret = process.env.WEB_SESSIONS_SECRET
 
   let cookie = socket.handshake.headers['cookie'];
-  console.log(cookie)
-  let parseCookie = Cookie.parse(cookie);
+  let parseCookie = cookieParser(unescape(cookie));
   let rackCookie = parseCookie['rack.session']
-  console.log(rackCookie);
 
-  decode_args = {secret: process.env.WEB_SESSIONS_SECRET, cookie: rackCookie };
-  decode(decode_args, function (err, data) {
-    console.log(data);
-    console.log(data['warden.user.default.key'])
-  });
+  let [b64Value, hexDigest] = decode.splitRackCookie(rackCookie);
+  if (hexDigest === decode.hmac(secret, b64Value)) {
+    rackSessionObj = decode.marshal(b64Value);
+    console.log(rackSessionObj);
+    console.log(rackSessionObj['warden.user.default.key']);
+  } else {
+    console.log('session invalid');
+  }
 
   socket.on('disconnect', function () {
     console.log('user disconnected')
@@ -38,6 +37,7 @@ io.on('connection', function (socket) {
   console.log("emitted")
 
 })
+
 /*
 http.listen(3000, function () {
   console.log('listening on *:3000')

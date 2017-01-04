@@ -233,8 +233,8 @@ module Web
         frame-ancestors 'self';
         base-uri 'self';
         default-src 'none';
-        script-src 'self';
-        connect-src 'self';
+        script-src 'self' https:;
+        connect-src 'self' ws:;
         img-src 'self' https: data:;
         style-src 'self' 'unsafe-inline' https:;
         font-src 'self';

@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/pongsanti/hanami_ezq#readme",
   "dependencies": {
+    "cookie": "^0.3.1",
+    "dotenv": "^2.0.0",
+    "marsha": "^0.1.0",
     "socket.io": "^1.7.2"
   }
 }

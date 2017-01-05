@@ -15,8 +15,8 @@ describe 'Visit work index page' do
     visit '/auth'
 
     page.body.must_include('Configuration')
-    page.body.must_include('Queue Info')
+    page.has_link?('Queue Info').must_equal true
     page.body.must_include('Operator')
-    page.body.must_include('Queue Ticket')
+    page.has_link?('Queue Ticket').must_equal true
   end
 end

@@ -3,11 +3,11 @@
 #
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
-
 resources :sessions, only: [:new, :create, :destroy]
 resources :users, only: [:new, :create]
 
 namespace 'auth' do
-  get '/',            to: 'work#index',     as: :work
-  get '/queueinfo',   to: 'work#queueInfo',  as: :queue_info
+  get '/',            to: 'work#index',       as: :work
+  get '/queueinfo',   to: 'work#queueInfo',   as: :queue_info
+  get '/queueticket',   to: 'work#queueTicket', as: :queue_ticket
 end

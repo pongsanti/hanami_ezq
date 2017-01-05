@@ -37,7 +37,7 @@ io.on('connection', function (socket) {
     console.log(`A user ${socket.id} has disconnected`);
   })
 
-  socket.on('queue update', function (msg) {
+  socket.on('request ticket', function (msg) {
     if (socket.roomNum) {
       io.to(socket.roomNum).emit('queue update', msg);
     }

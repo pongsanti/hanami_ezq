@@ -23,10 +23,10 @@ let ChannelSubscriber = {
     return self
   },
 
-  connect: function (callback) {
-    console.log('connect')
+  connect: function (callback, injectPg = null) {
+    let postgres = injectPg || pg
     let self = this
-    pg.connect(this.connectionString, function (err, client) {
+    postgres.connect(this.connectionString, function (err, client) {
       if (err) {
         callback(new Error('Cannot connect to database.'))
       } else {

@@ -11,7 +11,7 @@ describe('channel subscriber', function () {
     subscriber.should.have.property('channelName').with.equal('queue update')
   })
 
-  it('should connect to database successfully', function (done) {
+  it.skip('should connect to database successfully', function (done) {
     let subscriber = channel_subscriber.create(connectionString, 'queue update')
     subscriber.connect(function (err) {
       expect(err).to.be.null
@@ -20,7 +20,7 @@ describe('channel subscriber', function () {
     })
   })
 
-  it('should return error if connection failure', function (done) {
+  it.skip('should return error if connection failure', function (done) {
     let subscriber = channel_subscriber.create('invalid connection string', 'queue update')
     subscriber.connect(function (err) {
       err.should.be.an('error')

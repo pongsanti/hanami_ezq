@@ -1,7 +1,7 @@
-const querystring = require('querystring');
+const querystring = require('querystring')
 
-unescape = function (input) {
-  return querystring.unescape(input);
-};
+function unescape (input) {
+  return querystring.unescape(input)
+}
 
-module.exports = unescape;
+module.exports = unescape

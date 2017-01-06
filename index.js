@@ -1,6 +1,7 @@
 // var http = require('http')
 require('dotenv').config({path: '.env.development'})
 var RackSessionParser = require('./ws/rack_session_parser')
+let ChannelSubscriber = require('./ws/channel_subscriber')
 
 var Server = require('socket.io')
 var io = new Server(3000)
@@ -36,6 +37,25 @@ io.on('connection', function (socket) {
       io.to(socket.roomNum).emit('queue update', msg)
     }
   })
+})
+
+// Initialize Channel Subscriber
+let channelSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq')
+channelSub.connect(function (err) {
+  if (err) {
+    console.log(err)
+  } else {
+    channelSub.listen(function (msg) {
+      let payload = JSON.parse(msg['payload'])
+      console.log(payload)
+      let roomNum = payload.user_id
+      let queueNum = payload.queue_num
+      if (roomNum) {
+        console.log(`Emitting ${queueNum} to room ${roomNum}`)
+        io.to(roomNum).emit('queue update', queueNum)
+      }
+    })
+  }
 })
 
 console.log('listening on *:3000')

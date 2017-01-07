@@ -2,10 +2,15 @@
 require('dotenv').config({path: '.env.development'})
 var RackSessionParser = require('./ws/rack_session_parser')
 let ChannelSubscriber = require('./ws/channel_subscriber')
+let PgClient = require('./ws/pg_client')
 
 var Server = require('socket.io')
 var io = new Server(3000)
 
+// initialize pg client
+let pgClient = PgClient.create(process.env.DATABASE_URL)
+
+// initialize websocket io
 io.on('connection', function (socket) {
   console.log(`a user connected: ${socket.id}`)
 
@@ -23,7 +28,6 @@ io.on('connection', function (socket) {
       console.log(`A user id: ${socket.id} is joining room: ${roomNum}`)
 
       socket.join(roomNum)
-      io.to(socket.roomNum).emit('queue update', 'Hello number 5')
     }
   })
 
@@ -34,7 +38,13 @@ io.on('connection', function (socket) {
 
   socket.on('request ticket', function (msg) {
     if (socket.roomNum) {
-      io.to(socket.roomNum).emit('queue update', msg)
+      let sql = `UPDATE users SET ticket_number = ticket_number + 1 WHERE id = ${socket.roomNum}`
+      console.log(sql)
+      pgClient.query(sql, function (err, result) {
+        if (err) {
+          console.log(err)
+        }
+      })
     }
   })
 })
@@ -52,7 +62,7 @@ channelSub.connect(function (err) {
       let queueNumber = payload.queue_number
       let ticketNumber = payload.ticket_number
       if (roomNum) {
-        console.log(`Emitting ${queueNumber} to room ${roomNum}`)
+        console.log(`Emitting ${payload} to room ${roomNum}`)
         io.to(roomNum).emit('queue update', queueNumber)
       }
     })

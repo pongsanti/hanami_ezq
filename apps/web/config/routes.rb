@@ -3,6 +3,8 @@
 #
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
+root to: 'sessions#new'
+
 resources :sessions, only: [:new, :create, :destroy]
 resources :users, only: [:new, :create]
 

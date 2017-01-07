@@ -49,21 +49,39 @@ io.on('connection', function (socket) {
   })
 })
 
-// Initialize Channel Subscriber
-let channelSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq')
-channelSub.connect(function (err) {
+// Initialize Channel Subscriber (queue number)
+let queueNumSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq_queue_number')
+queueNumSub.connect(function (err) {
   if (err) {
     console.log(err)
   } else {
-    channelSub.listen(function (msg) {
+    queueNumSub.listen(function (msg) {
       let payload = JSON.parse(msg['payload'])
       console.log(payload)
       let roomNum = payload.user_id
       let queueNumber = payload.queue_number
+      if (roomNum) {
+        console.log(`Emitting ${queueNumber} to room ${roomNum}`)
+        io.to(roomNum).emit('queue update', queueNumber)
+      }
+    })
+  }
+})
+
+// Initialize Channel Subscriber (ticket number)
+let ticketNumSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq_ticket_number')
+ticketNumSub.connect(function (err) {
+  if (err) {
+    console.log(err)
+  } else {
+    ticketNumSub.listen(function (msg) {
+      let payload = JSON.parse(msg['payload'])
+      console.log(payload)
+      let roomNum = payload.user_id
       let ticketNumber = payload.ticket_number
       if (roomNum) {
-        console.log(`Emitting ${payload} to room ${roomNum}`)
-        io.to(roomNum).emit('queue update', queueNumber)
+        console.log(`Emitting ${ticketNumber} to room ${roomNum}`)
+        io.to(roomNum).emit('ticket update', ticketNumber)
       }
     })
   }

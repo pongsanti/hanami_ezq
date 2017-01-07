@@ -1,11 +1,10 @@
 var socket = io()
-socket.on('connect', function (data) {
-  console.log('connected')
-  console.log(data)
+
+$(function() {
+  socket.on('connect', function (data) {
+  })
+
+  socket.on('queue update', function(msg){
+    $('h1.current_queue').html(msg)
+  })
 })
-
-socket.on('queue update', function(msg){
-  $('h1.current_queue').html(msg);
-});
-
-console.log('Listening...')

@@ -3,7 +3,6 @@ module Web
     def self.included(action)
       action.class_eval do
         before :authenticate!
-        expose :current_user
       end
     end
 

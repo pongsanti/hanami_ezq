@@ -49,10 +49,11 @@ channelSub.connect(function (err) {
       let payload = JSON.parse(msg['payload'])
       console.log(payload)
       let roomNum = payload.user_id
-      let queueNum = payload.queue_num
+      let queueNumber = payload.queue_number
+      let ticketNumber = payload.ticket_number
       if (roomNum) {
-        console.log(`Emitting ${queueNum} to room ${roomNum}`)
-        io.to(roomNum).emit('queue update', queueNum)
+        console.log(`Emitting ${queueNumber} to room ${roomNum}`)
+        io.to(roomNum).emit('queue update', queueNumber)
       }
     })
   }

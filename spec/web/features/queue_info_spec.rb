@@ -2,8 +2,11 @@ require 'features_helper'
 
 describe 'Visit queue info page' do
   
+  queue_number = 5
+
   before do
-    login_as UserRepository.new.create({email: 'john@gmail.com', password_hash: 'hash'})
+    login_as UserRepository.new.create({email: 'john@gmail.com', 
+      password_hash: 'hash', queue_number: queue_number})
   end
 
   after do
@@ -15,6 +18,6 @@ describe 'Visit queue info page' do
     visit '/auth/queueinfo'
 
     page.body.must_include('Queue Info')
-    assert page.has_css?('h1.current_queue')
+    page.has_css?('h1.current_queue', text: queue_number).must_equal true
   end
 end

@@ -1,4 +1,4 @@
-var socket = io()
+var socket = io('/', {query: 'client_type=operator'})
 
 $(function () {
   socket.on('connect', function (data) {

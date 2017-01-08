@@ -12,7 +12,8 @@ let pgClient = PgClient.create(process.env.DATABASE_URL)
 
 // initialize websocket io
 io.on('connection', function (socket) {
-  console.log(`a user connected: ${socket.id}`)
+  console.log(`a user connected: '${socket.id}' with type: '${socket.handshake.query.client_type}'`)
+  socket.clientType = socket.handshake.query.client_type
 
   let cookieString = socket.handshake.headers['cookie']
   let secret = process.env.WEB_SESSIONS_SECRET
@@ -27,6 +28,38 @@ io.on('connection', function (socket) {
 
       console.log(`A user id: ${socket.id} is joining room: ${roomNum}`)
       socket.join(roomNum)
+
+      /*
+      Handles client event
+      Inputs
+      - event_name
+      - columnName
+      */
+      socket.handleClientQueueEvent = function (eventName, columnName) {
+        this.on(eventName, function (msg) {
+          if (this.roomNum) {
+            let sql = `UPDATE users SET ${columnName} = ${columnName} + 1 WHERE id = ${this.roomNum}`
+            console.log(sql)
+            pgClient.query(sql, function (err, result) {
+              if (err) {
+                console.log(err)
+              }
+            })
+          }
+        })
+      }
+
+      switch (socket.clientType) {
+        case 'queue ticket':
+        case 'operator': {
+          socket.handleClientQueueEvent('request ticket', 'ticket_number')
+          console.log(`user id: '${socket.id}' registered: 'request ticket'`)
+        }
+        default: {
+          socket.handleClientQueueEvent('next queue', 'queue_number')
+          console.log(`user id: '${socket.id}' registered: 'next queue'`)
+        }
+      }
     }
   })
 
@@ -34,30 +67,8 @@ io.on('connection', function (socket) {
     console.log(`A user ${socket.id} has disconnected`)
     console.log('----------')
   })
-
-  /*
-  Handle client event
-  Inputs
-  - event_name
-  - columnName
-  */
-  socket.handleClientQueueEvent = function (eventName, columnName) {
-    this.on(eventName, function (msg) {
-      if (this.roomNum) {
-        let sql = `UPDATE users SET ${columnName} = ${columnName} + 1 WHERE id = ${this.roomNum}`
-        console.log(sql)
-        pgClient.query(sql, function (err, result) {
-          if (err) {
-            console.log(err)
-          }
-        })
-      }
-    })
-  }
-
-  socket.handleClientQueueEvent('request ticket', 'ticket_number')
-  socket.handleClientQueueEvent('next queue', 'queue_number')
 })
+
 /*
 Subscribe to a channel
 Inputs

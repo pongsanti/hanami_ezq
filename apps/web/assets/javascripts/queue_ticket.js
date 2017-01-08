@@ -1,4 +1,4 @@
-var socket = io()
+var socket = io('/', {query: 'client_type=queue ticket'})
 
 $(function () {
   socket.on('connect', function (data) {
@@ -13,7 +13,7 @@ $(function () {
     $('h1.ticket_queue').html(msg)
   })
 
-  $('button.request_ticket').click( function () {
+  $('button.request_ticket').click(function () {
     socket.emit('request ticket')
   })
 })

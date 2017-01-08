@@ -1,4 +1,4 @@
-var socket = io()
+var socket = io('/', {query: 'client_type=queue info'})
 
 $(function () {
   socket.on('connect', function (data) {

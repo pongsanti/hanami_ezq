@@ -49,42 +49,35 @@ io.on('connection', function (socket) {
   })
 })
 
-// Initialize Channel Subscriber (queue number)
-let queueNumSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq_queue_number')
-queueNumSub.connect(function (err) {
-  if (err) {
-    console.log(err)
-  } else {
-    queueNumSub.listen(function (msg) {
-      let payload = JSON.parse(msg['payload'])
-      console.log(payload)
-      let roomNum = payload.user_id
-      let queueNumber = payload.queue_number
-      if (roomNum) {
-        console.log(`Emitting ${queueNumber} to room ${roomNum}`)
-        io.to(roomNum).emit('queue update', queueNumber)
-      }
-    })
-  }
-})
+/*
+Subscribe to a channel
+Inputs
+- channel_name
+- data_key
+- emit_event_name
+*/
+function subscribe (channelName, dataKey, emitEvent) {
+  let subscriber = ChannelSubscriber.create(process.env.DATABASE_URL, channelName)
+  subscriber.connect(function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(`Subscribed to channel '${channelName}' for data key '${dataKey}' to emit event '${channelName}'`)
+      subscriber.listen(function (msg) {
+        let payload = JSON.parse(msg['payload'])
+        console.log(payload)
+        let roomNum = payload.user_id
+        let data = payload[dataKey]
+        if (roomNum) {
+          console.log(`Emitting ${data} to room ${roomNum}`)
+          io.to(roomNum).emit(emitEvent, data)
+        }
+      })
+    }
+  })
+}
 
-// Initialize Channel Subscriber (ticket number)
-let ticketNumSub = ChannelSubscriber.create(process.env.DATABASE_URL, 'ezq_ticket_number')
-ticketNumSub.connect(function (err) {
-  if (err) {
-    console.log(err)
-  } else {
-    ticketNumSub.listen(function (msg) {
-      let payload = JSON.parse(msg['payload'])
-      console.log(payload)
-      let roomNum = payload.user_id
-      let ticketNumber = payload.ticket_number
-      if (roomNum) {
-        console.log(`Emitting ${ticketNumber} to room ${roomNum}`)
-        io.to(roomNum).emit('ticket update', ticketNumber)
-      }
-    })
-  }
-})
+subscribe('ezq_queue_number', 'queue_number', 'queue update')
+subscribe('ezq_ticket_number', 'ticket_number', 'ticket update')
 
 console.log('listening on *:3000')

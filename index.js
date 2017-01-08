@@ -26,7 +26,6 @@ io.on('connection', function (socket) {
       socket.roomNum = roomNum
 
       console.log(`A user id: ${socket.id} is joining room: ${roomNum}`)
-
       socket.join(roomNum)
     }
   })
@@ -36,19 +35,30 @@ io.on('connection', function (socket) {
     console.log('----------')
   })
 
-  socket.on('request ticket', function (msg) {
-    if (socket.roomNum) {
-      let sql = `UPDATE users SET ticket_number = ticket_number + 1 WHERE id = ${socket.roomNum}`
-      console.log(sql)
-      pgClient.query(sql, function (err, result) {
-        if (err) {
-          console.log(err)
-        }
-      })
-    }
-  })
-})
+  console.log(socket.handleClientQueueEvent)
+  /*
+  Handle client event
+  Inputs
+  - event_name
+  - columnName
+  */
+  socket.handleClientQueueEvent = function (eventName, columnName) {
+    this.on(eventName, function (msg) {
+      if (this.roomNum) {
+        let sql = `UPDATE users SET ${columnName} = ${columnName} + 1 WHERE id = ${this.roomNum}`
+        console.log(sql)
+        pgClient.query(sql, function (err, result) {
+          if (err) {
+            console.log(err)
+          }
+        })
+      }
+    })
+  }
 
+  socket.handleClientQueueEvent('request ticket', 'ticket_number')
+  socket.handleClientQueueEvent('next queue', 'queue_number')
+})
 /*
 Subscribe to a channel
 Inputs

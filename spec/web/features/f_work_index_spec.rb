@@ -16,7 +16,7 @@ describe 'Visit work index page' do
 
     page.body.must_include('Configuration')
     page.has_link?('Queue Info').must_equal true
-    page.body.must_include('Operator')
+    page.has_link?('Operator').must_equal true
     page.has_link?('Queue Ticket').must_equal true
   end
 end

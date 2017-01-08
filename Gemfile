@@ -8,6 +8,7 @@ gem 'hanami-model', '~> 0.7'
 gem 'pg'
 gem 'bcrypt'
 gem 'warden'
+gem 'tzinfo'
 
 group :development do
   # Code reloading

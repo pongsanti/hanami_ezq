@@ -35,7 +35,6 @@ io.on('connection', function (socket) {
     console.log('----------')
   })
 
-  console.log(socket.handleClientQueueEvent)
   /*
   Handle client event
   Inputs

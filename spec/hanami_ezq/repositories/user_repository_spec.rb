@@ -2,12 +2,15 @@ require 'spec_helper'
 
 describe UserRepository do
   before do
-    UserRepository.new.clear
     UserRepository.new.create(
       email: 'john@gmail.com',
         password_salt: 'salt',
         password_hash: 'hash'
       )
+  end
+
+  after do
+    UserRepository.new.clear
   end
   
   it 'finds user by email' do

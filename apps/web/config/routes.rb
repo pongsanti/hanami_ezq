@@ -7,6 +7,7 @@ root to: 'sessions#new'
 
 resources :sessions, only: [:new, :create, :destroy]
 resources :users, only: [:new, :create]
+post '/users/emailduplicatecheck', to: 'users#email_duplicate_check', as: :email_duplicate_check
 
 namespace 'auth' do
   get '/',              to: 'work#index',         as: :work

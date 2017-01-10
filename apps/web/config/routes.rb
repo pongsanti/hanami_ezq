@@ -14,4 +14,5 @@ namespace 'auth' do
   get '/queueinfo',     to: 'work#queueInfo',     as: :queue_info
   get '/queueticket',   to: 'work#queueTicket',   as: :queue_ticket
   get '/queueoperator', to: 'work#queueOperator', as: :queue_operator
+  get '/configuration', to: 'work#configuration', as: :configuration
 end

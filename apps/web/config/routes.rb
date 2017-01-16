@@ -15,4 +15,5 @@ namespace 'auth' do
   get '/queueticket',   to: 'work#queueTicket',   as: :queue_ticket
   get '/queueoperator', to: 'work#queueOperator', as: :queue_operator
   get '/configuration', to: 'work#configuration', as: :configuration
+  patch '/users',       to: 'users#resetQueue',   as: :reset_queue
 end

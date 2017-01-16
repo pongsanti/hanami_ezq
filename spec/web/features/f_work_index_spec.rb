@@ -14,7 +14,7 @@ describe 'Visit work index page' do
   it 'shows 4 main menus' do
     visit '/auth'
 
-    page.body.must_include('Configuration')
+    page.has_link?('Configuration').must_equal true
     page.has_link?('Queue Info').must_equal true
     page.has_link?('Operator').must_equal true
     page.has_link?('Queue Ticket').must_equal true

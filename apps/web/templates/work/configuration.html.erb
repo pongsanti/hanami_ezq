@@ -1,0 +1,9 @@
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<%= javascript 'audio' %>
+<%= javascript 'queue_info' %>
+
+<h1>Configuration</h1>
+<h1 class="current_queue"><%=queue_number%></h1>
+<h1 class="ticket_queue"><%=ticket_number%></h1>
+<button class="reset_queue_number">Reset Queue Number</button>
+<button class="reset_ticket_number">Reset Ticket Number</button>

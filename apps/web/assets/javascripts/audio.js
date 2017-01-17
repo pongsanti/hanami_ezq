@@ -45,3 +45,10 @@ var audio = {
     prefixAudio.play()
   }
 }
+
+$(function () {
+  // bind audio toggle
+  $('input.audio-toggle').change(function () {
+    audio.enable = this.checked
+  })
+})

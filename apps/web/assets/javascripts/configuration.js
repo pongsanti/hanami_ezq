@@ -1,11 +1,6 @@
 var socket = io('/', {query: 'client_type=configuration'})
 
 $(function () {
-  // bind audio toggle
-  $('input.audio-toggle').change(function () {
-    audio.enable = this.checked
-  })
-
   socket.on('connect', function (data) {
   })
 
@@ -15,7 +10,7 @@ $(function () {
     }
     $('h1.current_queue').html(msg)
   })
-  
+
   socket.on('recall', function () {
     audio.playSoundFiles($('h1.current_queue').html())
   })  

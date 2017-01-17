@@ -80,10 +80,10 @@ function subscribe (subscriber) {
 }
 
 function subscriberConnected (msg) {
-  SubscribeMessageParser.create(msg, this.dataKey, subscriberNofication.bind(this))
+  SubscribeMessageParser.create(msg, this.dataKey, subscriberNotification.bind(this))
 }
 
-function subscriberNofication (roomNum, data) {
+function subscriberNotification (roomNum, data) {
   if (roomNum) {
     console.log(`Emitting ${data} to room ${roomNum}`)
     io.to(roomNum).emit(this.emitEvent, data)

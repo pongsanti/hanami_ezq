@@ -19,6 +19,10 @@ $(function () {
   socket.on('ticket update', function (msg) {
     $('h1.ticket_queue').html(msg)
   })
+  
+  socket.on('recall', function () {
+    audio.playSoundFiles($('h1.current_queue').html())
+  })  
 
   $('button.request_ticket').click(function () {
     socket.emit('request ticket')

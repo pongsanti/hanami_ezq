@@ -15,6 +15,10 @@ $(function () {
     }
     $('h1.current_queue').html(msg)
   })
+  
+  socket.on('recall', function () {
+    audio.playSoundFiles($('h1.current_queue').html())
+  })  
 
   socket.on('ticket update', function (msg) {
     $('h1.ticket_queue').html(msg)

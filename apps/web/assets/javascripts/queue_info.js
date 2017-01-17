@@ -16,6 +16,10 @@ $(function () {
     $('h1.current_queue').html(msg)
   })
 
+  socket.on('recall', function () {
+    audio.playSoundFiles($('h1.current_queue').html())
+  })
+
   // toggle audio
   $('input.audio-toggle').prop('checked', true).trigger('change')
 })

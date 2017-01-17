@@ -50,17 +50,24 @@ io.on('connection', function (socket) {
             })
           }
         })
+        console.log(`user id: '${this.id}' registered: '${eventName}'`)
       }
 
       switch (socket.clientType) {
-        case 'queue ticket':
-        case 'operator': {
-          socket.handleClientQueueEvent('request ticket', 'ticket_number')
-          console.log(`user id: '${socket.id}' registered: 'request ticket'`)
-        }
-        default: {
+        case 'configuration':
+        case 'queue ticket': {
           socket.handleClientQueueEvent('next queue', 'queue_number')
-          console.log(`user id: '${socket.id}' registered: 'next queue'`)
+          socket.handleClientQueueEvent('request ticket', 'ticket_number')
+          break
+        }
+        case 'operator': {
+          socket.handleClientQueueEvent('next queue', 'queue_number')
+          socket.handleClientQueueEvent('request ticket', 'ticket_number')
+          socket.on('recall', () => io.to(socket.roomNum).emit('recall'))
+          break
+        }
+        case 'queue info': {
+          socket.handleClientQueueEvent('next queue', 'queue_number')
         }
       }
     }

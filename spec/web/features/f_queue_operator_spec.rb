@@ -33,6 +33,7 @@ describe 'Visit queue operator page' do
       page.has_css?('h1.ticket_queue', text: ticket_number).must_equal true
       page.has_css?('button.next_queue').must_equal true
       page.has_css?('button.recall_queue').must_equal true
+      page.has_css?('input[type="checkbox"].audio-toggle').must_equal true      
     end    
   end
 end

@@ -24,5 +24,6 @@ describe 'Visit queue info page' do
     page.has_css?('h1.current_queue', text: queue_number).must_equal true
     page.has_css?('h1.ticket_queue', text: ticket_number).must_equal true
     page.has_css?('button.request_ticket').must_equal true
+    page.has_css?('input[type="checkbox"].audio-toggle').must_equal true    
   end
 end

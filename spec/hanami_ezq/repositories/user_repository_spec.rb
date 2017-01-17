@@ -5,7 +5,8 @@ describe UserRepository do
     UserRepository.new.create(
       email: 'john@gmail.com',
         password_hash: 'hash',
-        queue_number: 99
+        queue_number: 99,
+        ticket_number: 190
       )
   end
 
@@ -25,4 +26,11 @@ describe UserRepository do
     user = UserRepository.new.reset_queue(users[0])
     user.queue_number.must_equal 0
   end
+
+  it 'resets ticket number' do
+    users = UserRepository.new.by_email('john@gmail.com')
+    users[0].wont_be_nil
+    user = UserRepository.new.reset_ticket(users[0])
+    user.ticket_number.must_equal 0
+  end  
 end

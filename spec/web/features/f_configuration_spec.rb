@@ -34,6 +34,26 @@ describe 'Visit queue operator page' do
       page.has_css?('button.reset_queue_number').must_equal true
       page.has_css?('button.reset_ticket_number').must_equal true
       page.has_css?('input[type="checkbox"].audio-toggle').must_equal true
-    end    
+    end
+
+    it 'resets queue number' do
+      visit '/auth/configuration'
+      page.body.must_include('Configuration')
+      page.has_css?('.current_queue', text: queue_number).must_equal true
+
+      click_button 'Reset Queue Number'
+      page.body.must_include('Configuration')
+      page.has_css?('.current_queue', text: 0).must_equal true
+    end
+
+    it 'resets ticket number' do
+      visit '/auth/configuration'
+      page.body.must_include('Configuration')
+      page.has_css?('.ticket_queue', text: ticket_number).must_equal true
+
+      click_button 'Reset Ticket Number'
+      page.body.must_include('Configuration')
+      page.has_css?('.ticket_queue', text: 0).must_equal true
+    end      
   end
 end

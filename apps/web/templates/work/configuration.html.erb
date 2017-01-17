@@ -13,7 +13,12 @@ Ticket Number<h1 class="ticket_queue"><%=ticket_number%></h1>
     end
   end
 %>
-
-<button class="reset_ticket_number">Reset Ticket Number</button>
+<%=
+  form_for :user, routes.reset_ticket_path, method: :patch do
+    div class: 'controls' do
+      submit 'Reset Ticket Number', class: 'reset_ticket_number'
+    end
+  end
+%>
 
 <input type="checkbox" class="audio-toggle" /> Sound

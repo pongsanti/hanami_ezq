@@ -76,38 +76,22 @@ subscribe(listenToChannel('ezq_queue_number').forData('queue_number').andEmitEve
 subscribe(listenToChannel('ezq_ticket_number').forData('ticket_number').andEmitEvent('ticket update'))
 
 function subscribe (subscriber) {
-  subscriber.connect(function (err) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(`Subscribed to channel '${subscriber.channelName}' for data key '${subscriber.dataKey}' to emit event '${subscriber.channelName}'`)
-      subscriber.listen(function (msg) {
-        SubscribeMessageParser.create(msg, subscriber.dataKey, function (roomNum, data) {
-          if (roomNum) {
-            console.log(`Emitting ${data} to room ${roomNum}`)
-            io.to(roomNum).emit(subscriber.emitEvent, data)
-          }
-        })
-      })
-    }
-  })
+  subscriber.connect(subscriberConnected.bind(subscriber))
+}
+
+function subscriberConnected (msg) {
+  SubscribeMessageParser.create(msg, this.dataKey, subscriberNofication.bind(this))
+}
+
+function subscriberNofication (roomNum, data) {
+  if (roomNum) {
+    console.log(`Emitting ${data} to room ${roomNum}`)
+    io.to(roomNum).emit(this.emitEvent, data)
+  }
 }
 
 function listenToChannel (channelName) {
-  let subscriber = ChannelSubscriber.create(process.env.DATABASE_URL, channelName)
-  subscriber.forData = forData.bind(subscriber)
-  return subscriber
-}
-
-function forData (dataKey) {
-  this.dataKey = dataKey
-  this.andEmitEvent = andEmitEvent.bind(this)
-  return this
-}
-
-function andEmitEvent (eventName) {
-  this.emitEvent = eventName
-  return this
+  return ChannelSubscriber.create(process.env.DATABASE_URL, channelName)
 }
 
 console.log('listening on *:3000')

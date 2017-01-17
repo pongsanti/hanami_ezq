@@ -31,22 +31,36 @@ let ChannelSubscriber = {
 
   connectCallback: function (err, client) {
     if (err) {
-      this.clientConnectCallback(new Error('Cannot connect to database.'))
+      console.log('Cannot connect to database.')
     } else {
       this.client = client
-      this.clientConnectCallback(null)
+      console.log(`Subscribed to channel '${this.channelName}' for data key '${this.dataKey}' to emit event '${this.channelName}'`)
+      this.listen()
     }
   },
 
-  listen: function (callback) {
+  listen: function () {
+    let self = this
     this.client.on('notification', function (msg) {
-      callback(msg)
+      self.clientConnectCallback(msg)
     })
     this.client.query(`LISTEN ${this.channelName}`)
   },
 
   end: function () {
     this.client.end()
+  },
+
+  // for DSL sake
+  forData: function (dataKey) {
+    this.dataKey = dataKey
+    return this
+  },
+
+  // for DSL sake
+  andEmitEvent: function (eventName) {
+    this.emitEvent = eventName
+    return this
   }
 }
 

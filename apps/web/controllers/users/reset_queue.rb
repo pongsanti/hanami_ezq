@@ -3,10 +3,9 @@ module Web::Controllers::Users
     include Web::Action
     include Web::Authentication
 
-    expose :user
-
     def call(params)
-      @user = UserRepository.new.reset_queue(current_user)
+      UserRepository.new.reset_queue(current_user)
+      redirect_to routes.configuration_path
     end
   end
 end

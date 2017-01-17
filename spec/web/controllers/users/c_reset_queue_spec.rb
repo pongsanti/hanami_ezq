@@ -26,15 +26,18 @@ describe Web::Controllers::Users::ResetQueue do
     UserRepository.new.clear
   end
 
-  it 'exposes user' do
+  it 'redirects to configuration page' do
     response = action.call(params)
-    action.user.wont_be_nil
-    response[0].must_equal 200
+        
+    response[0].must_equal 302
+    response[1]['Location'].must_equal '/auth/configuration'
   end
 
   it 'update queue number' do
     response = action.call(params)
-    action.user.queue_number.must_equal 0
-    response[0].must_equal 200
+    UserRepository.new.by_email('john@gmail.com')[0].queue_number.must_equal 0
+
+    response[0].must_equal 302
+    response[1]['Location'].must_equal '/auth/configuration'
   end
 end

@@ -1,6 +1,11 @@
 var socket = io('/', {query: 'client_type=queue info'})
 
 $(function () {
+  // bind audio toggle
+  $('input.audio-toggle').change(function () {
+    audio.enable = this.checked
+  })
+
   socket.on('connect', function (data) {
   })
 
@@ -10,4 +15,7 @@ $(function () {
     }
     $('h1.current_queue').html(msg)
   })
+
+  // toggle audio
+  $('input.audio-toggle').prop('checked', true).trigger('change')
 })

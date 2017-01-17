@@ -1,6 +1,11 @@
 var socket = io('/', {query: 'client_type=operator'})
 
 $(function () {
+  // bind audio toggle
+  $('input.audio-toggle').change(function () {
+    audio.enable = this.checked
+  })
+
   socket.on('connect', function (data) {
   })
 

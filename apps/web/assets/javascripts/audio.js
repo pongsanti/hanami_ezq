@@ -4,7 +4,12 @@ for (let num of Array(10).keys()) {
 }
 
 var audio = {
+  enable: false,
   playSoundFiles: function (queueNumbers) {
+    if (!this.enable) {
+      return;
+    }
+
     queueNumbers = String(queueNumbers).split('')
 
     let audios = []

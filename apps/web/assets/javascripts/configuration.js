@@ -1,6 +1,11 @@
 var socket = io('/', {query: 'client_type=configuration'})
 
 $(function () {
+  // bind audio toggle
+  $('input.audio-toggle').change(function () {
+    audio.enable = this.checked
+  })
+
   socket.on('connect', function (data) {
   })
 
@@ -14,5 +19,4 @@ $(function () {
   socket.on('ticket update', function (msg) {
     $('h1.ticket_queue').html(msg)
   })
-
 })

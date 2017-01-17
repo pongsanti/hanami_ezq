@@ -1,7 +1,10 @@
 // var http = require('http')
 require('dotenv').config({path: '.env.development'})
 var RackSessionParser = require('./ws/rack_session_parser')
+
 let ChannelSubscriber = require('./ws/channel_subscriber')
+let SubscribeMessageParser = require('./ws/subscribe_message_parser')
+
 let PgClient = require('./ws/pg_client')
 
 var Server = require('socket.io')
@@ -69,35 +72,42 @@ io.on('connection', function (socket) {
   })
 })
 
-/*
-Subscribe to a channel
-Inputs
-- channel_name
-- data_key
-- emit_event_name
-*/
-function subscribe (channelName, dataKey, emitEvent) {
-  let subscriber = ChannelSubscriber.create(process.env.DATABASE_URL, channelName)
+subscribe(listenToChannel('ezq_queue_number').forData('queue_number').andEmitEvent('queue update'))
+subscribe(listenToChannel('ezq_ticket_number').forData('ticket_number').andEmitEvent('ticket update'))
+
+function subscribe (subscriber) {
   subscriber.connect(function (err) {
     if (err) {
       console.log(err)
     } else {
-      console.log(`Subscribed to channel '${channelName}' for data key '${dataKey}' to emit event '${channelName}'`)
+      console.log(`Subscribed to channel '${subscriber.channelName}' for data key '${subscriber.dataKey}' to emit event '${subscriber.channelName}'`)
       subscriber.listen(function (msg) {
-        let payload = JSON.parse(msg['payload'])
-        console.log(payload)
-        let roomNum = payload.user_id
-        let data = payload[dataKey]
-        if (roomNum) {
-          console.log(`Emitting ${data} to room ${roomNum}`)
-          io.to(roomNum).emit(emitEvent, data)
-        }
+        SubscribeMessageParser.create(msg, subscriber.dataKey, function (roomNum, data) {
+          if (roomNum) {
+            console.log(`Emitting ${data} to room ${roomNum}`)
+            io.to(roomNum).emit(subscriber.emitEvent, data)
+          }
+        })
       })
     }
   })
 }
 
-subscribe('ezq_queue_number', 'queue_number', 'queue update')
-subscribe('ezq_ticket_number', 'ticket_number', 'ticket update')
+function listenToChannel (channelName) {
+  let subscriber = ChannelSubscriber.create(process.env.DATABASE_URL, channelName)
+  subscriber.forData = forData.bind(subscriber)
+  return subscriber
+}
+
+function forData (dataKey) {
+  this.dataKey = dataKey
+  this.andEmitEvent = andEmitEvent.bind(this)
+  return this
+}
+
+function andEmitEvent (eventName) {
+  this.emitEvent = eventName
+  return this
+}
 
 console.log('listening on *:3000')

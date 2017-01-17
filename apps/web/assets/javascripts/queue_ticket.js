@@ -5,7 +5,9 @@ $(function () {
   })
 
   socket.on('queue update', function (msg) {
-    audio.playSoundFiles(msg)
+    if (msg !== 0) {
+      audio.playSoundFiles(msg)
+    }
     $('h1.current_queue').html(msg)
   })
 

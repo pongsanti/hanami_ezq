@@ -9,8 +9,6 @@ gem 'pg'
 gem 'bcrypt'
 gem 'warden'
 gem 'tzinfo'
-
-gem 'babel-transpiler'
 # pdf
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary-edge', '~> 0.12.4.0'
@@ -23,6 +21,7 @@ end
 
 group :test, :development do
   gem 'dotenv', '~> 2.0'
+  gem 'babel-transpiler'
 end
 
 group :test do

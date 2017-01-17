@@ -9,6 +9,8 @@ gem 'pg'
 gem 'bcrypt'
 gem 'warden'
 gem 'tzinfo'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary-edge', '~> 0.12.4.0'
 
 group :development do
   # Code reloading

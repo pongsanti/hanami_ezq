@@ -1,14 +1,7 @@
 module Web::Views::Work
   class Configuration
     include Web::View
-
-    def queue_number
-      user.queue_number
-    end
+    include Web::Views::CommonInfo
     
-    def ticket_number
-      user.ticket_number
-    end
-
   end
 end

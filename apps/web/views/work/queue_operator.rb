@@ -1,13 +1,7 @@
 module Web::Views::Work
   class QueueOperator
     include Web::View
+    include Web::Views::CommonInfo
 
-    def queue_number
-      user.queue_number
-    end
-
-    def ticket_number
-      user.ticket_number
-    end
   end
 end

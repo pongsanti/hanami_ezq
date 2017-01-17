@@ -3,8 +3,8 @@
 <%= javascript 'configuration' %>
 
 <h1>Configuration</h1>
-Queue Number<h1 class="current_queue"><%=user.queue_number%></h1>
-Ticket Number<h1 class="ticket_queue"><%=user.ticket_number%></h1>
+Queue Number<h1 class="current_queue"><%=queue_number%></h1>
+Ticket Number<h1 class="ticket_queue"><%=ticket_number%></h1>
 
 <%=
   form_for :user, routes.reset_queue_path, method: :patch do

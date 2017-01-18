@@ -1,46 +1,64 @@
+<style type="text/css">
+  body {
+    background-color: #DADADA;
+  }
+  body > .grid {
+    height: 100%;
+  }
+  .image {
+    margin-top: -100px;
+  }
+  .column {
+    max-width: 450px;
+  }
+</style>
+
 <div class="ui middle aligned center aligned grid">
   <div class="column">
     <h2 class="ui teal image header">
       <div class="content">Log in</div>
     </h2>
-<%=
-  form_for :session, routes.sessions_path, class: 'ui large form' do
-    div class: 'field' do
-      div class: 'ui left icon input' do
-        i class: 'user icon'
-        label      :email
-        text_field :email
+    <% unless params.valid? %>
+      <div class="ui error message">
+        <h3>There was a problem with your submission</h3>
+        <ul class="list">
+          <% params.error_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if params.env['warden'].message %>
+      <div class="ui error message">
+        <h3><%=params.env['warden'].message %></h3>
+      </div>
+    <% end %>
+
+    <%=
+      form_for :session, routes.sessions_path, class: 'ui large form' do
+        div class: 'ui stacked segment' do
+          div class: 'field' do
+            div class: 'ui left icon input' do
+              i class: 'user icon'
+              text_field :email, placeholder: 'Email'
+            end
+          end
+
+          div class: 'field' do
+            div class: 'ui left icon input' do
+              i class: 'lock icon'
+              password_field :password, placeholder: 'Password'
+            end
+          end
+          div class: 'control' do
+            submit 'Log in', class: 'ui fluid large teal submit button'
+          end
+        end
       end
-    end
-
-    div class: 'input' do
-      label      :password
-      password_field :password
-    end
-
-    div class: 'controls' do
-      submit 'Log in'
-    end
-  end
-%>
-
+    %>
+    <div class="ui message">
+      New user? <%= link_to 'Sign up', routes.new_user_path %>
+    </div>
   </div>
 </div>
-<h2>Log in</h2>
-
-<% unless params.valid? %>
-  <div class="errors">
-    <h3>There was a problem with your submission</h3>
-    <ul>
-      <% params.error_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% if params.env['warden'].message %>
-  <div class="errors">
-    <h3><%=params.env['warden'].message %></h3>
-  </div>
-<% end %>

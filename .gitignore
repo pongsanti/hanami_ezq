@@ -2,3 +2,5 @@
 /public/assets*
 /tmp
 /node_modules
+/semantic
+/apps/web/vendor/assets

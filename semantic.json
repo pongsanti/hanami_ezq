@@ -8,12 +8,12 @@
       "themes": "src/themes/"
     },
     "output": {
-      "packaged": "../apps/web/vendor/assets/semantic/dist/",
-      "uncompressed": "../apps/web/vendor/assets/semantic/dist/components/",
-      "compressed": "../apps/web/vendor/assets/semantic/dist/components/",
-      "themes": "../apps/web/vendor/assets/semantic/dist/themes/"
+      "packaged": "../public/assets/semantic/dist/",
+      "uncompressed": "../public/assets/semantic/dist/components/",
+      "compressed": "../public/assets/semantic/dist/components/",
+      "themes": "../public/assets/semantic/dist/themes/"
     },
-    "clean": "../apps/web/vendor/assets/semantic/dist/"
+    "clean": "../public/assets/semantic/dist/"
   },
   "permission": false,
   "autoInstall": false,

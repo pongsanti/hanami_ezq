@@ -151,8 +151,7 @@ module Web
         # Specify sources for assets
         #
         sources << [
-          'assets',
-          'vendor/assets/semantic/dist'
+          'assets'
         ]
       end
 

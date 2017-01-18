@@ -1,3 +1,31 @@
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">Log in</div>
+    </h2>
+<%=
+  form_for :session, routes.sessions_path, class: 'ui large form' do
+    div class: 'field' do
+      div class: 'ui left icon input' do
+        i class: 'user icon'
+        label      :email
+        text_field :email
+      end
+    end
+
+    div class: 'input' do
+      label      :password
+      password_field :password
+    end
+
+    div class: 'controls' do
+      submit 'Log in'
+    end
+  end
+%>
+
+  </div>
+</div>
 <h2>Log in</h2>
 
 <% unless params.valid? %>
@@ -16,21 +44,3 @@
     <h3><%=params.env['warden'].message %></h3>
   </div>
 <% end %>
-
-<%=
-  form_for :session, routes.sessions_path do
-    div class: 'input' do
-      label      :email
-      text_field :email
-    end
-
-    div class: 'input' do
-      label      :password
-      password_field :password
-    end
-
-    div class: 'controls' do
-      submit 'Log in'
-    end
-  end
-%>

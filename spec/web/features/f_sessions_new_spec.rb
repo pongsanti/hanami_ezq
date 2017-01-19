@@ -4,6 +4,6 @@ describe 'Visit new session page' do
   it 'shows login form' do
     visit '/sessions/new'
 
-    page.body.must_include('Log in')
+    page.has_css?('form#session-form').must_equal true
   end
 end

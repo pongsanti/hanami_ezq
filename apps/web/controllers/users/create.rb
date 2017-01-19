@@ -1,3 +1,5 @@
+require_relative '../validation'
+
 module Web::Controllers::Users
   class Create
     include Web::Action
@@ -6,7 +8,7 @@ module Web::Controllers::Users
 
     params do
       required(:user).schema do
-        required(:email).filled(:str?)
+        required(:email).filled(:str?, format?: Web::Validation::EMAIL_REGEX )
         required(:password).filled(:str?).confirmation
         required(:password_confirmation).filled(:str?)
       end

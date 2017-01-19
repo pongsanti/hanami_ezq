@@ -16,16 +16,16 @@
 <div class="ui vertical masthead center aligned segment">
   <div class="ui text container">
     <h1 class="ui header">EZ Queue</h1>
-    <h2 class="">คิวง่ายๆ เพื่อธุรกิจของคุณ</h2>
+    <h2 class="">คิวลูกค้าเพื่อธุรกิจคุณ</h2>
     <div class="ui huge primary button">ข้อมูลเพิ่มเติม... <i class="down arrow icon"></i></div>
   </div>
 </div>
-<div class="ui red vertical segment">
+<div class="ui teal vertical segment">
   <div class="ui equal width stackable internally celled grid container">
-    <div class="center aligned middle aligned row">
+    <div class="center aligned row">
       <div class="column">
         <h1 class="header">เข้าสู่ระบบ</h1>
-        <% unless params.valid? %>
+        <% if !params.valid? && params.errors[:session] %>
           <div class="ui error message">
             <div class="header">There was a problem with your submission</div>
             <ul class="list">
@@ -44,14 +44,14 @@
         <%=
             form_for :session, routes.sessions_path, class: 'ui large form' do
               div class: 'ui segment' do
-                div class: 'field' do
+                div class: field_class(:session, :email) do
                   div class: 'ui left icon input' do
                     i class: 'user icon'
                     text_field :email, placeholder: 'Email'
                   end
                 end
 
-                div class: 'field' do
+                div class: field_class(:session, :password) do
                   div class: 'ui left icon input' do
                     i class: 'lock icon'
                     password_field :password, placeholder: 'Password'
@@ -66,11 +66,10 @@
       </div>
       <div class="column">
         <h1 class="header">สมัครใช้งาน</h1>
-          <% unless params.valid? %>
+          <% if !params.valid? && params.errors[:user] %>
             <div class="ui error message">
               <div class="header">There was a problem with your submission</div>
               <ul class="list">
-                <% Web.logger.debug params.errors[:session] %>
                 <% params.error_messages.each do |message| %>
                   <li><%= message %></li>
                 <% end %>
@@ -80,21 +79,21 @@
           <%=
             form_for :user, routes.users_path, class: 'ui large form' do
               div class: 'ui segment' do
-                div class: 'field' do
+                div class: field_class(:user, :email) do
                   div class: 'ui left icon input' do
                     i class: 'user icon'
                     text_field :email, placeholder: 'Email'
                   end
                 end
 
-                div class: 'field' do
+                div class: field_class(:user, :password) do
                   div class: 'ui left icon input' do
                     i class: 'lock icon'
                     password_field :password, placeholder: 'Password'
                   end
                 end
 
-                div class: 'field' do
+                div class: field_class(:user, :password_confirmation) do
                   div class: 'ui left icon input' do
                     i class: 'lock icon'
                     password_field :password_confirmation, placeholder: 'Password Confirmation'
@@ -111,6 +110,6 @@
     </div>
   </div>
 </div>
-<div class="ui teal vertical segment">
+<div class="ui orange vertical segment">
 
 </div>

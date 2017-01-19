@@ -1,10 +1,12 @@
+require_relative '../validation'
+
 module Web::Controllers::Sessions
   class Create
     include Web::Action
 
     params do
       required(:session).schema do
-        required(:email).filled(:str?)
+        required(:email).filled(:str?, format?: Web::Validation::EMAIL_REGEX )
         required(:password).filled(:str?)
       end
     end

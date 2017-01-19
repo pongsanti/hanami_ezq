@@ -1,39 +1,64 @@
 <%= javascript 'users_new' %>
+<style type="text/css">
+  body {
+    background-color: #DADADA;
+  }
+  body > .grid {
+    height: 100%;
+  }
+  .image {
+    margin-top: -100px;
+  }
+  .column {
+    max-width: 450px;
+  }
+</style>
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal header">
+      <div class="content">Sign up</div>
+    </h2>
+    <% unless params.valid? %>
+      <div class="ui error message">
+        <h3>There was a problem with your submission</h3>
+        <ul class="list">
+          <% params.error_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%=
+      form_for :user, routes.users_path, class: 'ui large form' do
+        div class: 'ui stacked segment' do
+          div class: 'field' do
+            div class: 'ui left icon input' do
+              i class: 'user icon'
+              text_field :email, placeholder: 'Email'
+            end
+          end
 
-<h2>Sign up</h2>
+          div class: 'field' do
+            div class: 'ui left icon input' do
+              i class: 'lock icon'
+              password_field :password, placeholder: 'Password'
+            end
+          end
 
-<% unless params.valid? %>
-  <div class="errors">
-    <h3>There was a problem with your submission</h3>
-    <ul>
-      <% params.error_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+          div class: 'field' do
+            div class: 'ui left icon input' do
+              i class: 'lock icon'
+              password_field :password_confirmation, placeholder: 'Password Confirmation'
+            end
+          end
+
+          div class: 'controls' do
+            submit 'Sign up', class: 'ui fluid large teal submit button'
+          end
+        end
+      end
+    %>
   </div>
-<% end %>
-
-<%=
-  form_for :user, routes.users_path do
-    div class: 'input' do
-      label      :email
-      text_field :email
-    end
-
-    div class: 'input' do
-      label      :password
-      password_field :password
-    end
-
-    div class: 'input' do
-      label      :password_confirmation
-      password_field :password_confirmation
-    end
-
-    div class: 'controls' do
-      submit 'Sign up'
-    end
-  end
-%>
+</div>
 
 <button id="user-check-duplicate-email">Check duplicate email</button>

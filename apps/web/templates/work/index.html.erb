@@ -1,18 +1,41 @@
-<h2>Authorized area</h2>
+<style type="text/css">
+  body {
+    margin-top: 5em;    
+  }
+</style>
 
-<h3><%= user.email %></h3>
-<span>created at: <%=user.created_at %></span>
-<%=
-  form_for :session, '/sessions/99', method: :delete do
-    submit 'Log out'
-  end
-%>
+<div class="ui top fixed menu">
+  <div class="header item"><%= user.email %></div>
+  <div class="item">created at: <%=user.created_at %></div>
+  <div class="item">
+    <%=
+      form_for :session, '/sessions/99', method: :delete do
+        submit 'Log out', class: "ui primary button"
+      end
+    %>
+  </div>
+</div>
 
-<nav>
-  <ul>
-    <li><%= link_to 'Configuration', routes.configuration_path %></li>
-    <li><%= link_to 'Queue Info', routes.queue_info_path %></li>
-    <li><%= link_to 'Operator', routes.queue_operator_path %></li>
-    <li><%= link_to 'Queue Ticket', routes.queue_ticket_path %></li>
-  </ul>
-</nav>
+<div class="ui vertical center aligned segment">
+  <h1>Authorized area</h1>
+  <h2>Main menu</h2>
+
+  <div class="ui equal width stackable internally celled grid container">
+    <div class="center aligned row">
+      <div class="column">
+        <%= link_to 'Configuration', routes.configuration_path, class: 'massive ui button' %>
+      </div>
+      <div class="column">
+        <%= link_to 'Queue Info', routes.queue_info_path, class: 'massive ui button' %>
+      </div>
+    </div>
+    <div class="center aligned row">
+      <div class="column">
+        <%= link_to 'Operator', routes.queue_operator_path, class: 'massive ui button' %>
+      </div>
+      <div class="column">
+        <%= link_to 'Queue Ticket', routes.queue_ticket_path, class: 'massive ui button' %>
+      </div>
+    </div>
+  </div>
+</div>

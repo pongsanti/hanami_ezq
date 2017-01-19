@@ -1,64 +1,116 @@
 <style type="text/css">
   body {
-    background-color: #DADADA;
-  }
-  body > .grid {
-    height: 100%;
+    background: linear-gradient(to bottom, rgba(134,174,204,1) 0%, rgba(212,228,239,1) 100%);
   }
   .image {
     margin-top: -100px;
   }
-  .column {
-    max-width: 450px;
+  .masthead h1.ui.header {
+    margin-top: 1em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
   }
 </style>
 
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">Log in</div>
-    </h2>
-    <% unless params.valid? %>
-      <div class="ui error message">
-        <h3>There was a problem with your submission</h3>
-        <ul class="list">
-          <% params.error_messages.each do |message| %>
-            <li><%= message %></li>
+<div class="ui vertical masthead center aligned segment">
+  <div class="ui text container">
+    <h1 class="ui header">EZ Queue</h1>
+    <h2 class="">คิวง่ายๆ เพื่อธุรกิจของคุณ</h2>
+    <div class="ui huge primary button">ข้อมูลเพิ่มเติม... <i class="down arrow icon"></i></div>
+  </div>
+</div>
+<div class="ui red vertical segment">
+  <div class="ui equal width stackable internally celled grid container">
+    <div class="center aligned middle aligned row">
+      <div class="column">
+        <h1 class="header">เข้าสู่ระบบ</h1>
+        <% unless params.valid? %>
+          <div class="ui error message">
+            <div class="header">There was a problem with your submission</div>
+            <ul class="list">
+              <% params.error_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if params.env['warden'].message %>
+          <div class="ui error message">
+            <div class="header"><%=params.env['warden'].message %></div>
+          </div>
+        <% end %>
+        <%=
+            form_for :session, routes.sessions_path, class: 'ui large form' do
+              div class: 'ui segment' do
+                div class: 'field' do
+                  div class: 'ui left icon input' do
+                    i class: 'user icon'
+                    text_field :email, placeholder: 'Email'
+                  end
+                end
+
+                div class: 'field' do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password, placeholder: 'Password'
+                  end
+                end
+                div class: 'control' do
+                  submit 'Log in', class: 'ui fluid large teal submit button'
+                end
+              end
+            end
+          %>              
+      </div>
+      <div class="column">
+        <h1 class="header">สมัครใช้งาน</h1>
+          <% unless params.valid? %>
+            <div class="ui error message">
+              <div class="header">There was a problem with your submission</div>
+              <ul class="list">
+                <% Web.logger.debug params.errors[:session] %>
+                <% params.error_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    <% end %>
+          <%=
+            form_for :user, routes.users_path, class: 'ui large form' do
+              div class: 'ui segment' do
+                div class: 'field' do
+                  div class: 'ui left icon input' do
+                    i class: 'user icon'
+                    text_field :email, placeholder: 'Email'
+                  end
+                end
 
-    <% if params.env['warden'].message %>
-      <div class="ui error message">
-        <h3><%=params.env['warden'].message %></h3>
-      </div>
-    <% end %>
+                div class: 'field' do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password, placeholder: 'Password'
+                  end
+                end
 
-    <%=
-      form_for :session, routes.sessions_path, class: 'ui large form' do
-        div class: 'ui stacked segment' do
-          div class: 'field' do
-            div class: 'ui left icon input' do
-              i class: 'user icon'
-              text_field :email, placeholder: 'Email'
+                div class: 'field' do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password_confirmation, placeholder: 'Password Confirmation'
+                  end
+                end
+
+                div class: 'controls' do
+                  submit 'Sign up', class: 'ui fluid large orange submit button'
+                end
+              end
             end
-          end
-
-          div class: 'field' do
-            div class: 'ui left icon input' do
-              i class: 'lock icon'
-              password_field :password, placeholder: 'Password'
-            end
-          end
-          div class: 'control' do
-            submit 'Log in', class: 'ui fluid large teal submit button'
-          end
-        end
-      end
-    %>
-    <div class="ui message">
-      New user? <%= link_to 'Sign up', routes.new_user_path %>
+          %>          
+      </div>
     </div>
   </div>
+</div>
+<div class="ui teal vertical segment">
+
 </div>

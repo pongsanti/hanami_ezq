@@ -4,6 +4,8 @@ describe 'Visit new session page' do
   it 'shows login form' do
     visit '/sessions/new'
 
-    page.has_css?('form#session-form').must_equal true
+    assert(page.has_css?('form#session-form'))
   end
+
+  # finds other test cases in home_spec
 end

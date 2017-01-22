@@ -9,14 +9,21 @@ describe Web::Controllers::Users::Create do
   end
 
   describe 'with valid params' do
+    warden = Object.new
+    warden.define_singleton_method(:set_user) { |user| @user = user }
+    warden.define_singleton_method(:user) { @user }
+
+  
     let(:params) { Hash[user: { email: 'john@gmail.com', 
-      password: '1234abcd', password_confirmation: '1234abcd' }] }
+      password: '1234abcd', password_confirmation: '1234abcd' }, 'warden' => warden] }
 
     it 'creates a new user' do
       action.call(params)
 
       action.user.id.wont_be_nil
       action.user.password_hash.wont_be_nil
+
+      warden.user.email.must_equal 'john@gmail.com'
     end
 
     it 'redirects the user to the authorized main page' do

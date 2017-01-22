@@ -19,7 +19,9 @@ module Web::Controllers::Users
         params[:user][:password_hash] = BCrypt::Password.create(params[:user][:password])
 
         @user = UserRepository.new.create(params[:user])
-
+        # set user to warden
+        params.env['warden'].set_user(@user)
+        # redirects user to authorization area main menu
         redirect_to routes.work_path
       else
         self.status = 422

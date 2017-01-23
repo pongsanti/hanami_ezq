@@ -5,6 +5,7 @@ $(() => {
 
   let formId = 'user-form'
   let inputEmail = $('input#user-email')
+  let errorDiv = $('form#user-form div.ui.error.message')
   userFormValidation()
 
   $('input#user-email').blur((event) => {
@@ -12,15 +13,23 @@ $(() => {
     let inputEmail = event.currentTarget.value.trim()
     if (/\S/.test(inputEmail)) {
       toggleLoading(true)
+
+      let postData = {
+        '_csrf_token': $(`form#${formId} input[name='_csrf_token']`).val(),
+        'user': { 'email': inputEmail }
+      }
+
       $.post(
         { url: '/users/emailduplicatecheck',
-          data: {
-            '_csrf_token': $(`form#${formId} input[name='_csrf_token']`).val(),
-            'user': { 'email': inputEmail }
-          },
+          data: postData,
           dataType: 'json'
         }, (data) => {
-        console.log(data)
+        if (data.duplicate) {
+          let message = `<ul class="list"><li>${data.email} has already been taken</li></ul>`
+          errorDiv.html($(message)).css('display', 'block')
+        } else {
+          errorDiv.html('').removeAttr('style')
+        }
       }).fail(() => {
         // console.log('failure')
       }).always(() => {
@@ -64,7 +73,6 @@ $(() => {
         }
       })
   }
-  
 
   function userFormValidation () {
     $(`form#${formId}`)

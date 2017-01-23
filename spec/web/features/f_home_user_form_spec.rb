@@ -134,6 +134,14 @@ describe 'Visit home page' do
       end
       
       it 'validates if email has already been taken' do
+        visit '/'
+        within('form#user-form') do
+          fill_in 'Email', with: email
+          # blur
+          fill_in 'Password', with: '1234'
+        end
+
+        page.must_have_content "#{email} has already been taken"
       end
 
     end

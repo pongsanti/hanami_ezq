@@ -17,6 +17,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara_minitest_spec (1.0.5)
+      capybara (>= 2)
+      minitest (>= 4)
     cliver (0.3.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
@@ -183,6 +186,7 @@ DEPENDENCIES
   bcrypt
   bundler
   capybara
+  capybara_minitest_spec
   dotenv (~> 2.0)
   hanami (~> 0.9)
   hanami-model (~> 0.7)

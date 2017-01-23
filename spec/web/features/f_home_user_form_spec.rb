@@ -118,7 +118,24 @@ describe 'Visit home page' do
         page.body.must_include('Please enter email')
         page.body.must_include('Please enter password')
         page.body.must_include('Please enter password confirmation')
-      end      
+      end
+
+      it 'validates if password length is less than 8 characters' do
+        visit '/'
+        within('form#user-form') do
+          fill_in 'Email', with: email
+          fill_in 'Password', with: '1234'
+          fill_in 'Password Confirmation', with: '1234'
+          find('button').trigger 'click'
+        end
+
+        assert(page.has_css?('form#user-form'))
+        page.body.must_include('Your password must be at least 8 characters') 
+      end
+      
+      it 'validates if email has already been taken' do
+      end
+
     end
   end
 end

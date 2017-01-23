@@ -88,6 +88,9 @@ $(() => {
             rules: [{
               type: 'empty',
               prompt: 'Please enter password'
+            }, {
+              type: 'minLength[8]',
+              prompt: 'Your password must be at least {ruleValue} characters'
             }]
           },
           password_confirmation: {

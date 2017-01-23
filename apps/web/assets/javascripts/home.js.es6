@@ -1,4 +1,8 @@
+/* global $ */
+
 $(() => {
+  sessionFormValidation()
+
   let formId = 'user-form'
   let inputEmail = $('input#user-email')
   userFormValidation()
@@ -17,9 +21,8 @@ $(() => {
           dataType: 'json'
         }, (data) => {
         console.log(data)
-        //console.log('success')
       }).fail(() => {
-        //console.log('failure')
+        // console.log('failure')
       }).always(() => {
         toggleLoading(false)
       })
@@ -34,8 +37,36 @@ $(() => {
     }
   }
 
+  function sessionFormValidation () {
+    $(`form#session-form`)
+      .form({
+        fields: {
+          email: {
+            identifier: 'session-email',
+            rules: [
+              {
+                type: 'empty',
+                prompt: 'Please enter your email'
+              },
+              {
+                type: 'email',
+                prompt: 'Email is invalid'
+              }
+            ]
+          },
+          password: {
+            identifier: 'session-password',
+            rules: [{
+              type: 'empty',
+              prompt: 'Please enter your password'
+            }]
+          }
+        }
+      })
+  }
+  
+
   function userFormValidation () {
-    console.log($(`form#${formId}`))
     $(`form#${formId}`)
       .form({
         fields: {
@@ -43,14 +74,28 @@ $(() => {
             identifier: 'user-email',
             rules: [
               {
-                type   : 'empty',
-                prompt : 'Please enter your email'
+                type: 'empty',
+                prompt: 'Please enter email'
               },
               {
                 type: 'email',
                 prompt: 'Email is invalid'
               }
             ]
+          },
+          password: {
+            identifier: 'user-password',
+            rules: [{
+              type: 'empty',
+              prompt: 'Please enter password'
+            }]
+          },
+          password_confirmation: {
+            identifier: 'user-password-confirmation',
+            rules: [{
+              type: 'empty',
+              prompt: 'Please enter password confirmation'
+            }]
           }
         }
       })

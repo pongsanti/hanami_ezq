@@ -32,7 +32,6 @@ describe Web::Views::Sessions::New do
     it 'displays list of errors when params contains errors' do
       params.valid? # trigger validations
 
-      rendered.must_include('There was a problem with your submission')
       rendered.must_include('Email is missing')
       rendered.must_include('Password is missing')
     end

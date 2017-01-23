@@ -26,7 +26,7 @@ describe 'Visit home page' do
       within("form#session-form") do
         fill_in 'Email', with: email
         fill_in 'Password', with: password
-        find('button[type="submit"]').click
+        clickLogInButton
       end
 
       assert(page.has_link?('Configuration'))
@@ -38,10 +38,10 @@ describe 'Visit home page' do
       within("form#session-form") do
         fill_in 'Email', with: 'nouser@email.com'
         fill_in 'Password', with: 'password'
-        find('button[type="submit"]').click
+        clickLogInButton
       end
 
-      assert(page.has_css?('form#user-form'))
+      assert(page.has_css?('form#session-form'))
       page.body.must_include('Invalid email or password')
     end    
 
@@ -51,49 +51,44 @@ describe 'Visit home page' do
       within("form#session-form") do
         fill_in 'Email', with: 'invalidemail'
         fill_in 'Password', with: 'password'
-        find('button[type="submit"]').click
+        clickLogInButton
       end
 
-      assert(page.has_css?('form#user-form'))
+      assert(page.has_css?('form#session-form'))
       page.body.must_include('Email is in invalid format') 
     end
 
-  end
+    describe 'with front end validations' do
+      before { Capybara.current_driver = :poltergeist }
+      after { Capybara.use_default_driver }
+      it 'validates if email is invalid' do
+        visit '/'
 
-  describe 'there is a sign up form' do
-    it 'shows sign up form' do
-      visit '/'
 
-      assert(page.has_css?('form#user-form'))
-    end
+        within('form#session-form') do
+          fill_in 'Email', with: 'invalidemail'
+          find('button').trigger('click')
+        end
 
-    it 'creates a new user' do
-      new_user_email = 'jane@gmail.com'
-      visit '/'
-
-      within('form#user-form') do
-        fill_in 'Email', with: new_user_email
-        fill_in 'Password', with: password
-        fill_in 'Password Confirmation', with: password
-        find('button[type="submit"]').click
+        assert(page.has_css?('form#session-form'))
+        page.body.must_include('Email is invalid')
       end
 
-      assert(page.has_link?('Configuration'))
-      page.body.must_include(new_user_email)
-    end
+      it 'validates if fields are empty' do
+        visit '/'
 
-    it 'shows error when email is invalid' do
-      visit '/'
+        within('form#session-form') do
+          find('button').trigger('click')
+        end
 
-      within('form#user-form') do
-        fill_in 'Email', with: 'invalidemail'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password Confirmation', with: 'password'
-        find('button[type="submit"]').click
-      end
-
-      assert(page.has_css?('form#user-form'))
-      page.body.must_include('Email is in invalid format') 
+        assert(page.has_css?('form#session-form'))
+        page.body.must_include('Please enter your email')
+        page.body.must_include('Please enter your password')
+      end       
     end
   end
+end
+
+def clickLogInButton
+  click_button('Log in')
 end

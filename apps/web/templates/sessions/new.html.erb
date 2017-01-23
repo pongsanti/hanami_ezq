@@ -30,7 +30,6 @@
         <h1 class="header">เข้าสู่ระบบ</h1>
         <% if !params.valid? && params.errors[:session] %>
           <div class="ui error message">
-            <div class="header">There was a problem with your submission</div>
             <ul class="list">
               <% params.error_messages.each do |message| %>
                 <li><%= message %></li>
@@ -46,6 +45,7 @@
         <% end %>
         <%=
             form_for :session, routes.sessions_path, class: 'ui large form' do
+              div class: 'ui error message'
               div class: 'ui segment' do
                 div class: field_class(:session, :email) do
                   div class: 'ui left icon input' do
@@ -61,7 +61,7 @@
                   end
                 end
                 div class: 'control' do
-                  submit 'Log in', class: 'ui fluid large teal submit button'
+                  submit 'Log in', class: 'ui fluid large teal submit button', id: 'login-button'
                 end
               end
             end
@@ -71,7 +71,6 @@
         <h1 class="header">สมัครใช้งาน</h1>
           <% if !params.valid? && params.errors[:user] %>
             <div class="ui error message">
-              <div class="header">There was a problem with your submission</div>
               <ul class="list">
                 <% params.error_messages.each do |message| %>
                   <li><%= message %></li>
@@ -81,6 +80,7 @@
           <% end %>
           <%=
             form_for :user, routes.users_path, class: 'ui large form' do
+              div class: 'ui error message' 
               div class: 'ui segment' do
                 div class: field_class(:user, :email) do
                   div class: 'ui left icon input' do
@@ -104,10 +104,8 @@
                 end
 
                 div class: 'controls' do
-                  submit 'Sign up', class: 'ui fluid large orange submit button'
+                  submit 'Sign up', class: 'ui fluid large orange submit button', id: 'signup-button'
                 end
-
-                div class: 'ui error message'
               end
             end
           %>          
@@ -115,6 +113,4 @@
     </div>
   </div>
 </div>
-<div class="ui orange vertical segment">
-
-</div>
+<div class="ui orange vertical segment"></div>

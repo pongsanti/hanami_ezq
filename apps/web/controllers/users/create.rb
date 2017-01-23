@@ -9,7 +9,7 @@ module Web::Controllers::Users
     params do
       required(:user).schema do
         required(:email).filled(:str?, format?: Web::Validation::EMAIL_REGEX )
-        required(:password).filled(:str?).confirmation
+        required(:password).filled(:str?, min_size?: 8).confirmation
         required(:password_confirmation).filled(:str?)
       end
     end

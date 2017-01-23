@@ -48,7 +48,7 @@ describe Web::Controllers::Users::Create do
       response[0].must_equal 422
     
       action.params.errors[:user][:email].must_equal  ['is missing']
-      action.params.errors[:user][:password].must_equal  ['is missing']
+      action.params.errors[:user][:password].must_equal  ['is missing', 'size cannot be less than 8']
       action.params.errors[:user][:password_confirmation].must_equal  ['is missing']
     end
   end

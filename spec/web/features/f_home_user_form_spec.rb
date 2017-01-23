@@ -2,18 +2,19 @@ require 'features_helper'
 
 describe 'Visit home page' do
   email = 'john@gmail.com'
-  password = 'sekr3t'
+  password = 'sekr3t55'
 
-  after do
-    UserRepository.new.clear
-  end
-
-  before do
-    UserRepository.new.create({email: email,
-      password_hash: BCrypt::Password.create(password)})
-  end  
 
   describe 'there is a sign up form' do
+    before do
+      UserRepository.new.create({email: email,
+        password_hash: BCrypt::Password.create(password)})
+    end
+
+    after do
+      UserRepository.new.clear
+    end
+
     it 'shows sign up form' do
       visit '/'
 
@@ -79,18 +80,17 @@ describe 'Visit home page' do
     end
 
     it 'shows error when password length is less than 8 characters' do
-      skip()
       visit '/'
 
       within('form#user-form') do
         fill_in 'Email', with: email
-        fill_in 'Password', with: password
-        fill_in 'Password Confirmation', with: password
+        fill_in 'Password', with: '1234'
+        fill_in 'Password Confirmation', with: '1234'
         clickSignUpButton
       end
 
       assert(page.has_css?('form#user-form'))
-      page.body.must_include('Email is in invalid format') 
+      page.body.must_include('Password size cannot be less than 8') 
     end            
 
     describe 'with front end validations' do

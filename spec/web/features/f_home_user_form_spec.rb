@@ -51,7 +51,6 @@ describe 'Visit home page' do
     end
 
     it 'shows error when email has already been taken' do
-      skip()
       visit '/'
 
       within('form#user-form') do
@@ -62,7 +61,7 @@ describe 'Visit home page' do
       end
 
       assert(page.has_css?('form#user-form'))
-      page.body.must_include('Email is in invalid format') 
+      page.body.must_include("#{email} has already been taken") 
     end
 
     it 'shows error when password not matched' do

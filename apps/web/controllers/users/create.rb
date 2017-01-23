@@ -1,6 +1,7 @@
 require_relative '../validation'
 
 module Web::Controllers::Users
+
   class Create
     include Web::Action
 
@@ -16,6 +17,13 @@ module Web::Controllers::Users
     
     def call(params)
       if params.valid?
+        # check email duplicate
+        unless UserRepository.new.by_email(params[:user][:email]).empty?
+          params[:user][:error] = "#{params[:user][:email]} has already been taken"
+          self.status = 422
+          return
+        end
+
         params[:user][:password_hash] = BCrypt::Password.create(params[:user][:password])
 
         @user = UserRepository.new.create(params[:user])
@@ -28,4 +36,5 @@ module Web::Controllers::Users
       end
     end
   end
+
 end

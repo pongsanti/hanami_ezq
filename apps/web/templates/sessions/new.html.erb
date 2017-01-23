@@ -37,12 +37,11 @@
             </ul>
           </div>
         <% end %>
-
         <% if params.env['warden'].message %>
           <div class="ui error message">
             <div class="header"><%=params.env['warden'].message %></div>
           </div>
-        <% end %>
+        <% end %>       
         <%=
             form_for :session, routes.sessions_path, class: 'ui large form' do
               div class: 'ui error message'
@@ -69,6 +68,11 @@
       </div>
       <div class="column">
         <h1 class="header">สมัครใช้งาน</h1>
+        <% if params[:user] && params[:user][:error] %>
+          <div class="ui error message">
+            <div class="header"><%=params[:user][:error] %></div>
+          </div>
+        <% end %>        
           <% if !params.valid? && params.errors[:user] %>
             <div class="ui error message">
               <ul class="list">

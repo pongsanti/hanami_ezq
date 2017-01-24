@@ -73,18 +73,19 @@
             <div class="header"><%=params[:user][:error] %></div>
           </div>
         <% end %>        
-          <% if !params.valid? && params.errors[:user] %>
-            <div class="ui error message">
-              <ul class="list">
-                <% params.error_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
+        <% if !params.valid? && params.errors[:user] %>
+          <div class="ui error message">
+            <ul class="list">
+              <% params.error_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="ui error message" id="duplicated-email-error" style="display: none;"></div>
           <%=
             form_for :user, routes.users_path, class: 'ui large form' do
-              div class: 'ui error message' 
+              div class: 'ui error message'
               div class: 'ui segment' do
                 div class: field_class(:user, :email) do
                   div class: 'ui left icon input' do

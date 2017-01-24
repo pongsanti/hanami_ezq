@@ -5,7 +5,7 @@ $(() => {
 
   let formId = 'user-form'
   let inputEmail = $('input#user-email')
-  let errorDiv = $('form#user-form div.ui.error.message')
+  let errorDiv = $('div#duplicated-email-error')
   userFormValidation()
 
   $('input#user-email').blur((event) => {
@@ -25,10 +25,9 @@ $(() => {
           dataType: 'json'
         }, (data) => {
         if (data.duplicate) {
-          let message = `<ul class="list"><li>${data.email} has already been taken</li></ul>`
-          errorDiv.html($(message)).css('display', 'block')
+          errorDiv.html(`${data.email} has already been taken`).show()
         } else {
-          errorDiv.html('').removeAttr('style')
+          errorDiv.hide()
         }
       }).fail(() => {
         // console.log('failure')

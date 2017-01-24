@@ -125,6 +125,7 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     public_suffix (2.0.4)
+    puma (3.6.2)
     rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -196,6 +197,7 @@ DEPENDENCIES
   pg
   poltergeist
   pry
+  puma
   rake
   shotgun
   tzinfo

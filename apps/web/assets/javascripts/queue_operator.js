@@ -19,7 +19,7 @@ $(function () {
     audio.playSoundFiles($('p.current-queue').html())
   })
 
-  $('button.next-queue').click(function () {
+  $('div.next-queue').click(function () {
     socket.emit('next queue')
   })
 

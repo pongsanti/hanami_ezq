@@ -13,15 +13,24 @@
   <div class="row">
     <div class="ui middle aligned center aligned equal width doubling stackable grid container">
       <div class="column">
-        <div class="ui huge statistic">
-          <div class="label">
-            Queue number
+        <div class="ui left labeled button" tabindex="0">
+          <div class="ui basic right pointing label">
+            <div class="ui huge statistic">
+              <div class="label">
+                Queue number
+              </div>
+              <div class="value">
+                <p class="current-queue"><%= queue_number %></p>
+              </div>
+            </div>  
           </div>
-          <div class="value">
-            <p class="current-queue"><%= queue_number %></p>
-          </div>
+          <div class="massive ui primary button next-queue">
+            <i class="huge step forward icon button"></i>
+            <p>Next Queue</p>
+          </div>       
         </div>
       </div>
+
       <div class="column">
         <div class="ui huge statistic">
           <div class="label">
@@ -36,14 +45,9 @@
   </div>
   <div class="row">
     <div class="ui center aligned grid container">
-      <div class="row">
-        <button type="button" class="massive ui primary button next-queue">
-          <i class="step forward icon"></i> Next Queue
-        </button>
-      </div>
-      <div class="row">
+      <div class="column">
         <button type="button" class="massive ui secondary button recall-queue">
-          <i class="announcement icon"></i> Recall Queue
+          <i class="huge announcement icon button"></i> Recall Queue
         </button>
       </div>
     </div>
@@ -51,7 +55,7 @@
 </div>
 
 
-<div class="ui top fixed menu">
+<div class="ui top fixed icon menu">
   <div class="ui container">
     <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
     <div class="item">

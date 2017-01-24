@@ -31,7 +31,7 @@ describe 'Visit queue operator page' do
       page.must_have_text 'Queue Operator'
       page.must_have_css 'p.current-queue', text: queue_number
       page.must_have_css 'p.ticket-queue', text: ticket_number
-      page.must_have_css 'button.next-queue'
+      page.must_have_css 'div.next-queue'
       page.must_have_css 'button.recall-queue'
       page.must_have_css 'input[type="checkbox"].audio-toggle'
     end    

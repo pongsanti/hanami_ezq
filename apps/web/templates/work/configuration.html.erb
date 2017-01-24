@@ -1,24 +1,95 @@
+<style type="text/css">
+  body > .grid.parent {
+    height: 100%;
+  }
+</style>
+
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<%= javascript 'time' %>
 <%= javascript 'audio' %>
 <%= javascript 'configuration' %>
 
-<h1>Configuration</h1>
-Queue Number<h1 class="current_queue"><%=queue_number%></h1>
-Ticket Number<h1 class="ticket_queue"><%=ticket_number%></h1>
+<div class="ui middle aligned grid container parent">
+  <div class="row">
+    <div class="ui middle aligned center aligned equal width doubling stackable grid container">
+      <!-- column -->
+      <div class="column">
+        <div class="ui left labeled button" tabindex="0">
+          <div class="ui basic right pointing label">
+            <div class="ui small statistic">
+              <div class="label">
+                Queue number
+              </div>
+              <div class="value">
+                <p class="current-queue"><%= queue_number %></p>
+              </div>
+            </div>  
+          </div>
+          <div class="big ui red button reset-queue">
+            <i class="big recycle icon button"></i>
+            <p>Reset</p>
+          </div>       
+        </div>
+      </div>
+
+      <!-- column -->
+      <div class="column">
+        <div class="ui left labeled button" tabindex="0">
+          <div class="ui basic right pointing label">
+            <div class="ui small statistic">
+              <div class="label">
+                Ticket number
+              </div>
+              <div class="value">
+                <p class="ticket-queue"><%= ticket_number %></p>
+              </div>
+            </div>
+          </div>
+          <div class="big ui red button reset-ticket">
+            <i class="big recycle icon button"></i>
+            <p>Reset</p>
+          </div>            
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+
+  </div>
+</div>
 
 <%=
-  form_for :user, routes.reset_queue_path, method: :patch do
+  form_for :user, routes.reset_queue_path, method: :patch, id: 'user-reset-queue-form' do
     div class: 'controls' do
-      submit 'Reset Queue Number', class: 'reset_queue_number'
+      submit 'Reset Queue Number', class: 'reset-queue-number', style: 'display: none;'
     end
   end
 %>
 <%=
-  form_for :user, routes.reset_ticket_path, method: :patch do
+  form_for :user, routes.reset_ticket_path, method: :patch, id: 'user-reset-ticket-form' do
     div class: 'controls' do
-      submit 'Reset Ticket Number', class: 'reset_ticket_number'
+      submit 'Reset Ticket Number', class: 'reset-ticket-number', style: 'display: none;'
     end
   end
 %>
 
-<input type="checkbox" class="audio-toggle" /> Sound
+<div class="ui top fixed icon menu">
+  <div class="ui container">
+    <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
+    <div class="item">
+      <h3 class="ui header">Configuration</h3>
+    </div>
+    <div class="item">
+      <div class="ui toggle checkbox">
+        <input type="checkbox" class="audio-toggle" />
+        <label><i class="volume up icon"></i> Sound</label>
+      </div>
+    </div>
+    <div class="right menu">
+      <div class="item">
+        <p class="time"></p>
+      </div>
+    </div>
+  </div>
+</div>

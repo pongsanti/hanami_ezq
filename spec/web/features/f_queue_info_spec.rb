@@ -26,9 +26,9 @@ describe 'Visit queue info page' do
     it 'shows current Q number' do
       visit '/auth/queueinfo'
 
-      page.body.must_include('Queue Info')
-      page.has_css?('h1.current_queue', text: queue_number).must_equal true
-      page.has_css?('input[type="checkbox"].audio-toggle').must_equal true
+      page.must_have_text 'Queue Info'
+      page.must_have_css 'p.current-queue', text: queue_number
+      page.must_have_css 'input[type="checkbox"].audio-toggle'
     end
   end
 end

@@ -1,8 +1,42 @@
+<style type="text/css">
+  body {
+  }
+  p.company-name {
+    font-size: 2em;
+  }
+  .current-queue {
+    font-size: 20em;
+  }
+</style>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <%= javascript 'audio' %>
 <%= javascript 'queue_info' %>
 
-<h1>Queue Info</h1>
-<h1 class="current_queue"><%= queue_number %></h1>
+<div class="ui center aligned vertical segment">
+  <p class="company-name">EZQ Corporation Public Limited</p>
+</div>
+<div class="ui center aligned vertical red segment">
+  <p class="current-queue"><%= queue_number %></p>
+</div>
 
-<input type="checkbox" class="audio-toggle" /> Sound
+<div class="ui bottom fixed menu">
+  <div class="item">
+    <h1>Queue Info</h1>
+  </div>
+  <div class="item">
+    <div class="ui toggle checkbox">
+      <input type="checkbox" class="audio-toggle" />
+      <label><i class="sound icon"></i> Sound</label>
+    </div>
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <p>Tape information</p>
+    </div>
+    <div class="item">
+      <p class="time">10:50:01</p>
+    </div>
+  </div>
+</div>
+
+

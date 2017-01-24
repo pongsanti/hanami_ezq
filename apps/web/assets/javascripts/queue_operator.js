@@ -8,22 +8,22 @@ $(function () {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
-    $('h1.current_queue').html(msg)
+    $('h1.current-queue').html(msg)
   })
 
   socket.on('ticket update', function (msg) {
-    $('h1.ticket_queue').html(msg)
+    $('h1.ticket-queue').html(msg)
   })
 
   socket.on('recall', function () {
-    audio.playSoundFiles($('h1.current_queue').html())
+    audio.playSoundFiles($('h1.current-queue').html())
   })
 
-  $('button.next_queue').click(function () {
+  $('button.next-queue').click(function () {
     socket.emit('next queue')
   })
 
-  $('button.recall_queue').click(function () {
+  $('button.recall-queue').click(function () {
     socket.emit('recall')
   })
 })

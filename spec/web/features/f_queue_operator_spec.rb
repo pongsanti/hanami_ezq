@@ -28,12 +28,12 @@ describe 'Visit queue operator page' do
 
     it 'shows information accordingly' do
       visit '/auth/queueoperator'
-      page.body.must_include('Queue Operator')
-      page.has_css?('h1.current_queue', text: queue_number).must_equal true
-      page.has_css?('h1.ticket_queue', text: ticket_number).must_equal true
-      page.has_css?('button.next_queue').must_equal true
-      page.has_css?('button.recall_queue').must_equal true
-      page.has_css?('input[type="checkbox"].audio-toggle').must_equal true      
+      page.must_have_text 'Queue Operator'
+      page.must_have_css 'h1.current-queue', text: queue_number
+      page.must_have_css 'h1.ticket-queue', text: ticket_number
+      page.must_have_css 'button.next-queue'
+      page.must_have_css 'button.recall-queue'
+      page.must_have_css 'input[type="checkbox"].audio-toggle'
     end    
   end
 end

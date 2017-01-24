@@ -1,11 +1,34 @@
+<style type="text/css">
+  body {
+  }
+</style>
+
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <%= javascript 'audio' %>
 <%= javascript 'queue_operator' %>
 
-<h1>Queue Operator</h1>
-Queue number<h1 class="current_queue"><%= queue_number %></h1>
-Ticket number<h1 class="ticket_queue"><%= ticket_number %></h1>
-<button type="button" class="next_queue">Next Queue</button>
-<button type="button" class="recall_queue">Recall Queue</button>
+<div class="ui center aligned vertical segment">
+  Queue number<h1 class="current-queue"><%= queue_number %></h1>
+  Ticket number<h1 class="ticket-queue"><%= ticket_number %></h1>
+</div>
+<div class="ui center aligned vertical orange segment">
+  <button type="button" class="ui primary button next-queue">Next Queue</button>
+  <button type="button" class="ui secondary button recall-queue">Recall Queue</button>
+</div>
 
-<input type="checkbox" class="audio-toggle" /> Sound
+<div class="ui bottom fixed menu">
+  <div class="item">
+    <h1>Queue Operator</h1>
+  </div>
+  <div class="item">
+    <div class="ui toggle checkbox">
+      <input type="checkbox" class="audio-toggle" />
+      <label><i class="sound icon"></i> Sound</label>
+    </div>
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <p class="time">10:50:01</p>
+    </div>
+  </div>
+</div>

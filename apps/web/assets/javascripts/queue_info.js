@@ -8,11 +8,11 @@ $(function () {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
-    $('h1.current_queue').html(msg)
+    $('p.current-queue').html(msg)
   })
 
   socket.on('recall', function () {
-    audio.playSoundFiles($('h1.current_queue').html())
+    audio.playSoundFiles($('p.current-queue').html())
   })
 
   // toggle audio only for queue info page

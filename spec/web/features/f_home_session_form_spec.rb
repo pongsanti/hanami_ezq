@@ -17,7 +17,7 @@ describe 'Visit home page' do
     it 'shows login form' do
       visit '/'
 
-      assert(page.has_css?('form#session-form'))
+      page.must_have_css 'form#session-form'
     end
 
     it 'logs user in' do
@@ -41,8 +41,8 @@ describe 'Visit home page' do
         clickLogInButton
       end
 
-      assert(page.has_css?('form#session-form'))
-      page.body.must_include('Invalid email or password')
+      page.must_have_css 'form#session-form'
+      page.must_have_text 'Invalid email or password'
     end    
 
     it 'shows error when email is invalid' do
@@ -54,8 +54,8 @@ describe 'Visit home page' do
         clickLogInButton
       end
 
-      assert(page.has_css?('form#session-form'))
-      page.body.must_include('Email is in invalid format') 
+      page.must_have_css 'form#session-form'
+      page.must_have_text 'Email is in invalid format' 
     end
 
     describe 'with front end validations' do
@@ -70,8 +70,8 @@ describe 'Visit home page' do
           find('button').trigger('click')
         end
 
-        assert(page.has_css?('form#session-form'))
-        page.body.must_include('Email is invalid')
+        page.must_have_css 'form#session-form'
+        page.must_have_text 'Email is invalid'
       end
 
       it 'validates if fields are empty' do
@@ -81,9 +81,9 @@ describe 'Visit home page' do
           find('button').trigger('click')
         end
 
-        assert(page.has_css?('form#session-form'))
-        page.body.must_include('Please enter your email')
-        page.body.must_include('Please enter your password')
+        page.must_have_css 'form#session-form'
+        page.must_have_text 'Please enter your email'
+        page.must_have_text 'Please enter your password'
       end       
     end
   end

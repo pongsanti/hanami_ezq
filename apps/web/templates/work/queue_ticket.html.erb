@@ -1,10 +1,71 @@
+<style type="text/css">
+  body > .grid.parent {
+    height: 100%;
+  }
+  .time {
+    font-size: 2em;
+  }
+</style>
+
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<%= javascript 'time' %>
 <%= javascript 'audio' %>
 <%= javascript 'queue_ticket' %>
 
-<h1>Queue Ticket</h1>
-Queue number<h1 class="current_queue"><%= queue_number %></h1>
-Ticket number<h1 class="ticket_queue"><%= ticket_number %></h1>
-<button type="button" class="request_ticket">Request Ticket</button>
+<div class="ui middle aligned grid container parent">
+  <div class="row">
+    <div class="ui middle aligned center aligned equal width doubling stackable grid container">
+      <div class="column">
+        <div class="ui huge statistic">
+          <div class="label">
+            Queue number
+          </div>
+          <div class="value">
+            <p class="current-queue"><%= queue_number %></p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui left labeled button" tabindex="0">
+          <div class="ui basic right pointing label">
+            <div class="ui huge statistic">
+              <div class="label">
+                Ticket number
+              </div>
+              <div class="value">
+                <p class="ticket-queue"><%= ticket_number %></p>
+              </div>
+            </div>  
+          </div>
+          <div class="massive ui primary button request-ticket">
+            <i class="huge ticket icon"></i>
+            <p></p>
+            <p>Request ticket</p>
+            <p>Push here!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<input type="checkbox" class="audio-toggle" /> Sound
+<div class="ui stackable top fixed menu">
+  <div class="ui container">
+    <div class="item">
+      <h1>EZQ Corporation Public Limited</h1>
+    </div>
+    <div class="right menu">
+      <div class="item">
+        <p class="time">10:50:01</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui stackable bottom fixed menu">
+  <div class="ui container">
+    <div class="item">
+      <h1>Tape information</h1>
+    </div>
+  </div>
+</div>

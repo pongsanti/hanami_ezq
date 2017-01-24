@@ -8,18 +8,18 @@ $(function () {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
-    $('h1.current_queue').html(msg)
+    $('p.current-queue').html(msg)
   })
 
   socket.on('ticket update', function (msg) {
-    $('h1.ticket_queue').html(msg)
+    $('p.ticket-queue').html(msg)
   })
 
   socket.on('recall', function () {
-    audio.playSoundFiles($('h1.current_queue').html())
+    audio.playSoundFiles($('p.current-queue').html())
   })  
 
-  $('button.request_ticket').click(function () {
+  $('div.request-ticket').click(function () {
     socket.emit('request ticket')
   })
 })

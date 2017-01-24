@@ -314,7 +314,7 @@ module Web
       # See: http://hanamirb.org/guides/applications/logging
       #
       # Logger stream. It defaults to STDOUT.
-      # logger.stream "log/production.log"
+      logger.stream "log/production.log"
       #
       # Logger level. It defaults to INFO
       logger.level :info

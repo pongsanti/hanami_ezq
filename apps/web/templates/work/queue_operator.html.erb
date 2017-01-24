@@ -1,34 +1,72 @@
 <style type="text/css">
-  body {
+  body > .grid.parent {
+    height: 100%;
   }
 </style>
 
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<%= javascript 'time' %>
 <%= javascript 'audio' %>
 <%= javascript 'queue_operator' %>
 
-<div class="ui center aligned vertical segment">
-  Queue number<h1 class="current-queue"><%= queue_number %></h1>
-  Ticket number<h1 class="ticket-queue"><%= ticket_number %></h1>
-</div>
-<div class="ui center aligned vertical orange segment">
-  <button type="button" class="ui primary button next-queue">Next Queue</button>
-  <button type="button" class="ui secondary button recall-queue">Recall Queue</button>
-</div>
-
-<div class="ui bottom fixed menu">
-  <div class="item">
-    <h1>Queue Operator</h1>
-  </div>
-  <div class="item">
-    <div class="ui toggle checkbox">
-      <input type="checkbox" class="audio-toggle" />
-      <label><i class="sound icon"></i> Sound</label>
+<div class="ui middle aligned grid container parent">
+  <div class="row">
+    <div class="ui middle aligned center aligned equal width doubling stackable grid container">
+      <div class="column">
+        <div class="ui huge statistic">
+          <div class="label">
+            Queue number
+          </div>
+          <div class="value">
+            <p class="current-queue"><%= queue_number %></p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui huge statistic">
+          <div class="label">
+            Ticket number
+          </div>
+          <div class="value">
+            <p class="ticket-queue"><%= ticket_number %></p>
+          </div>
+        </div>  
+      </div>
     </div>
   </div>
-  <div class="right menu">
+  <div class="row">
+    <div class="ui center aligned grid container">
+      <div class="row">
+        <button type="button" class="massive ui primary button next-queue">
+          <i class="step forward icon"></i> Next Queue
+        </button>
+      </div>
+      <div class="row">
+        <button type="button" class="massive ui secondary button recall-queue">
+          <i class="announcement icon"></i> Recall Queue
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ui top fixed menu">
+  <div class="ui container">
+    <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
     <div class="item">
-      <p class="time">10:50:01</p>
+      <h3 class="ui header">Queue Operator</h3>
+    </div>
+    <div class="item">
+      <div class="ui toggle checkbox">
+        <input type="checkbox" class="audio-toggle" />
+        <label><i class="volume up icon"></i> Sound</label>
+      </div>
+    </div>
+    <div class="right menu">
+      <div class="item">
+        <p class="time">10:50:01</p>
+      </div>
     </div>
   </div>
 </div>

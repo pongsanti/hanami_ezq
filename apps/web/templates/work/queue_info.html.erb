@@ -7,8 +7,12 @@
   .current-queue {
     font-size: 20em;
   }
+  .time {
+    font-size: 2em;
+  }
 </style>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<%= javascript 'time' %>
 <%= javascript 'audio' %>
 <%= javascript 'queue_info' %>
 
@@ -19,22 +23,25 @@
   <p class="current-queue"><%= queue_number %></p>
 </div>
 
-<div class="ui bottom fixed menu">
-  <div class="item">
-    <h1>Queue Info</h1>
-  </div>
-  <div class="item">
-    <div class="ui toggle checkbox">
-      <input type="checkbox" class="audio-toggle" />
-      <label><i class="sound icon"></i> Sound</label>
-    </div>
-  </div>
-  <div class="right menu">
+<div class="ui stackable bottom fixed menu">
+  <div class="ui container">
+    <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
     <div class="item">
-      <p>Tape information</p>
+      <h3 class="ui header">Queue Info</h3>
     </div>
     <div class="item">
-      <p class="time">10:50:01</p>
+      <div class="ui toggle checkbox">
+        <input type="checkbox" class="audio-toggle" />
+        <label><i class="volume up icon"></i> Sound</label>
+      </div>
+    </div>
+    <div class="right menu">
+      <div class="item">
+        <p>Tape information</p>
+      </div>
+      <div class="item">
+        <p class="time">10:50:01</p>
+      </div>
     </div>
   </div>
 </div>

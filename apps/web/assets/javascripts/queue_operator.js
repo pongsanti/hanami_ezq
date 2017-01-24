@@ -8,15 +8,15 @@ $(function () {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
-    $('h1.current-queue').html(msg)
+    $('p.current-queue').html(msg)
   })
 
   socket.on('ticket update', function (msg) {
-    $('h1.ticket-queue').html(msg)
+    $('p.ticket-queue').html(msg)
   })
 
   socket.on('recall', function () {
-    audio.playSoundFiles($('h1.current-queue').html())
+    audio.playSoundFiles($('p.current-queue').html())
   })
 
   $('button.next-queue').click(function () {

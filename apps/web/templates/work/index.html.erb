@@ -23,18 +23,18 @@
   <div class="ui equal width stackable internally celled grid container">
     <div class="center aligned row">
       <div class="column">
-        <%= link_to 'Configuration', routes.configuration_path, class: 'massive ui button' %>
+        <a href="<%=routes.configuration_path%>" class="massive ui primary button"><i class="big setting icon"></i> Configuration</a>
       </div>
       <div class="column">
-        <%= link_to 'Queue Info', routes.queue_info_path, class: 'massive ui button' %>
+        <a href="<%=routes.queue_info_path%>" class="massive ui primary button"><i class="big tv icon"></i> Queue Info</a>
       </div>
     </div>
     <div class="center aligned row">
       <div class="column">
-        <%= link_to 'Operator', routes.queue_operator_path, class: 'massive ui button' %>
+        <a href="<%=routes.queue_operator_path%>" class="massive ui primary button"><i class="big options icon"></i> Operator</a>
       </div>
       <div class="column">
-        <%= link_to 'Queue Ticket', routes.queue_ticket_path, class: 'massive ui button' %>
+        <a href="<%=routes.queue_ticket_path%>" class="massive ui primary button"><i class="big ticket icon"></i> Queue Ticket</a>
       </div>
     </div>
   </div>

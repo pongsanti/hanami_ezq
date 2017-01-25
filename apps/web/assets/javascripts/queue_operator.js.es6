@@ -1,29 +1,33 @@
+/* global io, $, audio, userLogoutListener */
+
 var socket = io('/', {query: 'client_type=operator'})
 
-$(function () {
-  socket.on('connect', function (data) {
+$(() => {
+  socket.on('connect', (data) => {
   })
 
-  socket.on('queue update', function (msg) {
+  socket.on('queue update', (msg) => {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
     $('p.current-queue').html(msg)
   })
 
-  socket.on('ticket update', function (msg) {
+  socket.on('ticket update', (msg) => {
     $('p.ticket-queue').html(msg)
   })
 
-  socket.on('recall', function () {
+  socket.on('recall', () => {
     audio.playSoundFiles($('p.current-queue').html())
   })
 
-  $('div.next-queue').click(function () {
+  userLogoutListener.listen(socket)
+
+  $('div.next-queue').click(() => {
     socket.emit('next queue')
   })
 
-  $('button.recall-queue').click(function () {
+  $('button.recall-queue').click(() => {
     socket.emit('recall')
   })
 })

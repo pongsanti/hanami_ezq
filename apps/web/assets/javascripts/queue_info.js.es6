@@ -1,17 +1,19 @@
+/* global io, $, audio, userLogoutListener */
+
 var socket = io('/', {query: 'client_type=queue info'})
 
-$(function () {
-  socket.on('connect', function (data) {
+$(() => {
+  socket.on('connect', (data) => {
   })
 
-  socket.on('queue update', function (msg) {
+  socket.on('queue update', (msg) => {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
     $('p.current-queue').html(msg)
   })
 
-  socket.on('recall', function () {
+  socket.on('recall', () => {
     audio.playSoundFiles($('p.current-queue').html())
   })
 

@@ -1,3 +1,5 @@
+/* global io, $, audio, printer */
+
 var socket = io('/', {query: 'client_type=queue ticket'})
 
 $(function () {
@@ -13,17 +15,16 @@ $(function () {
 
   socket.on('ticket update', function (msg) {
     $('p.ticket-queue').html(msg)
-    if (msg !== 0) {
-      window.print()
+    if (msg !== 0 && printer.enable) {
+      printer.print()
     }
   })
 
   socket.on('recall', function () {
     audio.playSoundFiles($('p.current-queue').html())
-  })  
+  })
 
   $('div.request-ticket').click(function () {
     socket.emit('request ticket')
   })
-
 })

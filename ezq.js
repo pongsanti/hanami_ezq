@@ -1,5 +1,5 @@
 // var http = require('http')
-require('dotenv').config({path: '.env.development'})
+require('dotenv').config()
 var RackSessionParser = require('./ws/rack_session_parser')
 
 let ChannelSubscriber = require('./ws/channel_subscriber')

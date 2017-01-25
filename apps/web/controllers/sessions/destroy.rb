@@ -9,7 +9,7 @@ module Web::Controllers::Sessions
 
       warden.logout
       # notify logout
-      UserRepository.new.container.gateways[:default].connection.run "NOTIFY logout, '#{payload}'"
+      UserRepository.new.container.gateways[:default].connection.run "NOTIFY ezq_logout, '#{payload}'"
 
       redirect_to routes.new_session_path
     end

@@ -81,6 +81,7 @@ io.on('connection', function (socket) {
 
 subscribe(listenToChannel('ezq_queue_number').forData('queue_number').andEmitEvent('queue update'))
 subscribe(listenToChannel('ezq_ticket_number').forData('ticket_number').andEmitEvent('ticket update'))
+subscribe(listenToChannel('ezq_logout').forData('user_id').andEmitEvent('user logout'))
 
 function subscribe (subscriber) {
   subscriber.connect(subscriberConnected.bind(subscriber))
@@ -92,7 +93,7 @@ function subscriberConnected (msg) {
 
 function subscriberNotification (roomNum, data) {
   if (roomNum) {
-    console.log(`Emitting ${data} to room ${roomNum}`)
+    console.log(`Emitting '${this.emitEvent}' with data '${data}' to room '${roomNum}'`)
     io.to(roomNum).emit(this.emitEvent, data)
   }
 }

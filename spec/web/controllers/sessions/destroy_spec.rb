@@ -23,6 +23,6 @@ describe Web::Controllers::Sessions::Destroy do
     response = action.call(params)
     warden.count.must_equal 1
     response[0].must_equal 302
-    response[1]['Location'].must_equal '/sessions/new'
+    response[1]['Location'].must_equal '/'
   end
 end

@@ -15,6 +15,8 @@ $(function () {
     audio.playSoundFiles($('p.current-queue').html())
   })
 
+  userLogoutListener.listen(socket)
+
   // toggle audio only for queue info page
   $('input.audio-toggle').prop('checked', true).trigger('change')
 })

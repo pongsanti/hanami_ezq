@@ -26,13 +26,13 @@
     <div class="ui huge secondary inverted button">วิธีใช้... <i class="down arrow icon"></i></div>
   </div>
 </div>
-<div class="ui vertical segment form">
+<div class="ui vertical segment">
   <div class="ui equal width stackable internally celled grid container">
     <div class="center aligned row">
       <div class="column">
         <h1 class="ui inverted header">เข้าสู่ระบบ</h1>
         <% if !params.valid? && params.errors[:session] %>
-          <div class="ui error message">
+          <div class="ui negative message">
             <ul class="list">
               <% params.error_messages.each do |message| %>
                 <li><%= message %></li>
@@ -41,7 +41,7 @@
           </div>
         <% end %>
         <% if params.env['warden'].message %>
-          <div class="ui error message">
+          <div class="ui negative message">
             <div class="header"><%=params.env['warden'].message %></div>
           </div>
         <% end %>       
@@ -72,12 +72,12 @@
       <div class="column">
         <h1 class="ui inverted header">สมัครใช้งาน</h1>
         <% if params[:user] && params[:user][:error] %>
-          <div class="ui error message">
+          <div class="ui negative message">
             <div class="header"><%=params[:user][:error] %></div>
           </div>
         <% end %>        
         <% if !params.valid? && params.errors[:user] %>
-          <div class="ui error message">
+          <div class="ui negative message">
             <ul class="list">
               <% params.error_messages.each do |message| %>
                 <li><%= message %></li>
@@ -85,7 +85,7 @@
             </ul>
           </div>
         <% end %>
-        <div class="ui error message" id="duplicated-email-error" style="display: none;"></div>
+        <div class="ui negative message" id="duplicated-email-error" style="display: none;"></div>
           <%=
             form_for :user, routes.users_path, class: 'ui large form' do
               div class: 'ui error message'

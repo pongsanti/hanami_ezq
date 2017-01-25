@@ -6,8 +6,13 @@
     font-size: 2em;
   }
   @media print {
-    @page { margin: 0; }
-    body { margin: 0.5cm; }
+    @page {
+      margin: 0;}
+    html, body { 
+      margin: 0.5cm;
+      height: 5cm;
+      overflow: hidden;
+    }
     body * {
       visibility: hidden;
     }

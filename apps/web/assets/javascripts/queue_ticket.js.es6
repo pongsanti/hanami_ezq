@@ -1,30 +1,32 @@
-/* global io, $, audio, printer */
+/* global io, $, audio, printer, userLogoutListener */
 
 var socket = io('/', {query: 'client_type=queue ticket'})
 
-$(function () {
-  socket.on('connect', function (data) {
+$(() => {
+  socket.on('connect', (data) => {
   })
 
-  socket.on('queue update', function (msg) {
+  socket.on('queue update', (msg) => {
     if (msg !== 0) {
       audio.playSoundFiles(msg)
     }
     $('p.current-queue').html(msg)
   })
 
-  socket.on('ticket update', function (msg) {
+  socket.on('ticket update', (msg) => {
     $('p.ticket-queue').html(msg)
     if (msg !== 0 && printer.enable) {
       printer.print()
     }
   })
 
-  socket.on('recall', function () {
+  socket.on('recall', () => {
     audio.playSoundFiles($('p.current-queue').html())
   })
 
-  $('div.request-ticket').click(function () {
+  userLogoutListener.listen(socket)
+
+  $('div.request-ticket').click(() => {
     socket.emit('request ticket')
   })
 })

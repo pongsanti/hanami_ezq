@@ -11,7 +11,7 @@ module Web::Controllers::Sessions
       # notify logout
       UserRepository.new.container.gateways[:default].connection.run "NOTIFY ezq_logout, '#{payload}'"
 
-      redirect_to routes.new_session_path
+      redirect_to routes.root_path
     end
   end
 end

@@ -13,6 +13,9 @@ $(function () {
 
   socket.on('ticket update', function (msg) {
     $('p.ticket-queue').html(msg)
+    if (msg !== 0) {
+      window.print()
+    }
   })
 
   socket.on('recall', function () {
@@ -22,4 +25,5 @@ $(function () {
   $('div.request-ticket').click(function () {
     socket.emit('request ticket')
   })
+
 })

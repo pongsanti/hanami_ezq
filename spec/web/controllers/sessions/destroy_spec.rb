@@ -1,13 +1,17 @@
 require 'spec_helper'
 require_relative '../../../../apps/web/controllers/sessions/destroy'
 
+userObj = Object.new
+userObj.define_singleton_method :id do 1; end
+
 warden = Object.new
 warden.instance_eval do
   def authenticate!; end
-  def user; end
   def count; @count; end
   def logout; @count = 1; end
 end
+
+warden.define_singleton_method :user do userObj; end
 
 describe Web::Controllers::Sessions::Destroy do
   let(:action) { Web::Controllers::Sessions::Destroy.new }

@@ -1,6 +1,6 @@
 <style type="text/css">
-  body > .grid.parent {
-    height: 100%;
+  div.main-container {
+    height: 100%
   }
 </style>
 
@@ -10,54 +10,8 @@
 <%= javascript 'user_logout_listener' %>
 <%= javascript 'queue_operator' %>
 
-<div class="ui middle aligned grid container parent">
-  <div class="row">
-    <div class="ui middle aligned center aligned equal width doubling stackable grid container">
-      <div class="column">
-        <div class="ui left labeled button" tabindex="0">
-          <div class="ui basic right pointing label">
-            <div class="ui huge statistic">
-              <div class="label">
-                Queue number
-              </div>
-              <div class="value">
-                <p class="current-queue"><%= queue_number %></p>
-              </div>
-            </div>  
-          </div>
-          <div class="massive ui primary button next-queue">
-            <i class="huge step forward icon button"></i>
-            <p>Next Queue</p>
-          </div>       
-        </div>
-      </div>
-
-      <div class="column">
-        <div class="ui huge statistic">
-          <div class="label">
-            Ticket number
-          </div>
-          <div class="value">
-            <p class="ticket-queue"><%= ticket_number %></p>
-          </div>
-        </div>  
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="ui center aligned grid container">
-      <div class="column">
-        <button type="button" class="massive ui secondary button recall-queue">
-          <i class="huge announcement icon button"></i> Recall Queue
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="ui top fixed icon menu">
-  <div class="ui container">
+<div class="ui container main-container">
+  <div class="ui stackable icon menu top-menu container">
     <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
     <div class="item">
       <h3 class="ui header">Queue Operator</h3>
@@ -65,13 +19,53 @@
     <div class="item">
       <div class="ui toggle checkbox">
         <input type="checkbox" class="audio-toggle" />
-        <label><i class="volume up icon"></i> Sound</label>
+        <label><i class="volume up icon"></i></label>
       </div>
     </div>
     <div class="right menu">
       <div class="item">
-        <p class="time">10:50:01</p>
+        <p class="time">CURRENT TIME</p>
       </div>
     </div>
   </div>
+
+  <div class="ui center aligned two column stackable grid">
+    <div class="column">
+      <div class="ui left labeled button" tabindex="0">
+        <div class="ui basic right pointing label">
+          <div class="ui huge statistic">
+            <div class="label">
+              Queue number
+            </div>
+            <div class="value">
+              <p class="current-queue"><%= queue_number %></p>
+            </div>
+          </div>  
+        </div>
+        <div class="massive ui primary button next-queue">
+          <i class="huge step forward icon button"></i>
+          <p>Next Queue</p>
+        </div>       
+      </div>
+    </div>
+    <div class="column">
+      <div class="ui huge statistic">
+        <div class="label">
+          Ticket number
+        </div>
+        <div class="value">
+          <p class="ticket-queue"><%= ticket_number %></p>
+        </div>
+      </div>  
+    </div>
+  </div>
+ 
+  <div class="ui center aligned stackable grid">
+    <div class="column">
+      <button type="button" class="massive ui secondary button recall-queue">
+        <i class="huge announcement icon button"></i> Recall Queue
+      </button>
+    </div>
+  </div>
+  
 </div>

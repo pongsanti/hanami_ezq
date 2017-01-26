@@ -1,14 +1,20 @@
 <style type="text/css">
-  body {
+  div.main-container {
+    position: relative;
+    height: 100%
   }
-  p.company-name {
+  div.bottom-menu {
+    position: absolute;
+    bottom: 0px;
+  }
+  .company-name {
     font-size: 2em;
   }
   .current-queue {
-    font-size: 20em;
+    font-size: 30em;
   }
   .time {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 </style>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -17,15 +23,15 @@
 <%= javascript 'user_logout_listener' %>
 <%= javascript 'queue_info' %>
 
-<div class="ui center aligned vertical segment">
-  <p class="company-name">EZQ Corporation Public Limited</p>
-</div>
-<div class="ui center aligned vertical orange segment">
-  <p class="current-queue"><%= queue_number %></p>
-</div>
+<div class="ui container main-container">
+  <div class="ui center aligned orange raised segment">
+    <p class="company-name">EZQ Corporation Public Limited</p>
+  </div>
+  <div class="ui center aligned piled segment">
+    <p class="current-queue"><%= queue_number %></p>
+  </div>
 
-<div class="ui stackable bottom fixed icon menu">
-  <div class="ui container">
+  <div class="ui stackable icon menu bottom-menu container">
     <a href="<%=routes.work_path%>" class="item"><i class="big home icon"></i></a>
     <div class="item">
       <h3 class="ui header">Queue Info</h3>
@@ -41,10 +47,13 @@
         <p>Tape information</p>
       </div>
       <div class="item">
-        <p class="time">10:50:01</p>
+        <p class="time">CURRENT TIME</p>
       </div>
     </div>
   </div>
+
 </div>
+
+
 
 

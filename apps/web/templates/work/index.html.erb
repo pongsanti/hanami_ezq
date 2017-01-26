@@ -10,7 +10,10 @@
   <div class="item">
     <%=
       form_for :session, '/sessions/99', method: :delete do
-        submit 'Log out', class: "ui secondary button"
+        button type: "submit", class: "ui labeled icon button" do
+          i class: "sign out icon"
+          span 'Log out'
+        end
       end
     %>
   </div>

@@ -2,7 +2,13 @@
 <%= javascript 'close_icon' %>
 <style type="text/css">
   div.main-container {
-    height: 100%
+    height: 100%;
+  }
+  .masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
   }
   body {
     /*
@@ -26,17 +32,22 @@
 </style>
 
 <div class="ui container main-container">
-  <div class="ui middle aligned center aligned equal width stackable grid">
+  <div class="ui center aligned equal width stackable grid">
     <div class="row">
       <div class="column">
-        <div class="ui vertical segment">
+        <div class="ui vertical segment masthead">
           <h1 class="ui orange header">EZ Queue</h1>
           <h2 class="">คิวลูกค้าเพื่อธุรกิจคุณ</h2>
           <div class="ui huge secondary button">วิธีใช้... <i class="down arrow icon"></i></div>
         </div>
       </div>
       <div class="column">
-        <div class="ui vertical segment">
+        <div class="ui secondary pointing menu">
+          <a class="item active" id="login-link">เข้าสู่ระบบ</a>
+          <a class="item" id="signup-link">สมัครใช้งาน</a>
+        </div>
+
+        <div class="ui raised segment" id="login-segment">
           <h1 class="ui header">เข้าสู่ระบบ</h1>
           <% if !params.valid? && params.errors[:session] %>
             <div class="ui negative message">
@@ -78,6 +89,57 @@
             end
           %>
         </div>
+
+        <div class="ui raised segment" id="signup-segment" style="display: none;">
+          <h1 class="ui header">สมัครใช้งาน</h1>
+          <% if params[:user] && params[:user][:error] %>
+            <div class="ui negative message">
+              <div class="header"><%=params[:user][:error] %></div>
+            </div>
+          <% end %>        
+          <% if !params.valid? && params.errors[:user] %>
+            <div class="ui negative message">
+              <ul class="list">
+                <% params.error_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="ui negative message" id="duplicated-email-error" style="display: none;"></div>
+          <%=
+            form_for :user, routes.users_path, class: 'ui large form' do
+              div class: 'ui error message'
+              div class: 'ui segment' do
+                div class: field_class(:user, :email) do
+                  div class: 'ui left icon input' do
+                    i class: 'user icon'
+                    text_field :email, placeholder: 'Email'
+                  end
+                end
+
+                div class: field_class(:user, :password) do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password, placeholder: 'Password'
+                  end
+                end
+
+                div class: field_class(:user, :password_confirmation) do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password_confirmation, placeholder: 'Password Confirmation'
+                  end
+                end
+
+                div class: 'controls' do
+                  submit 'Sign up', class: 'ui fluid large orange submit button', id: 'signup-button'
+                end
+              end
+            end
+          %>  
+        </div>
+
       </div>
     </div>
   </div>

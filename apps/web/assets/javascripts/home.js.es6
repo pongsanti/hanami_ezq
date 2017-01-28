@@ -110,4 +110,24 @@ $(() => {
         }
       })
   }
+
+  // Login, Signup menu
+  let loginLink = $('a#login-link')
+  let signupLink = $('a#signup-link')
+  let loginSegment = $('#login-segment')
+  let signupSegment = $('#signup-segment')
+  loginLink.click((event) => {
+    loginLink.addClass('active')
+    signupLink.removeClass('active')
+    loginSegment.show()
+    signupSegment.hide()
+
+  })
+  signupLink.click((event) => {
+    signupLink.addClass('active')
+    loginLink.removeClass('active')
+    signupSegment.show()
+    loginSegment.hide()
+  })
+
 })

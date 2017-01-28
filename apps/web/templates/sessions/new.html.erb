@@ -1,9 +1,14 @@
 <%= javascript 'home' %>
 <style type="text/css">
+  div.main-container {
+    height: 100%
+  }
   body {
-    background: #232526; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #232526 , #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    /*
+    background: #232526; /* fallback for old browsers
+    background: -webkit-linear-gradient(to left, #232526 , #414345); /* Chrome 10-25, Safari 5.1-6 
+    background: linear-gradient(to left, #232526 , #414345); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
+    */
   }
   body > .segment.form {
     height: 75%;
@@ -19,6 +24,63 @@
   }
 </style>
 
+<div class="ui container main-container">
+  <div class="ui middle aligned center aligned equal width stackable grid">
+    <div class="row">
+      <div class="column">
+        <div class="ui vertical segment">
+          <h1 class="ui orange header">EZ Queue</h1>
+          <h2 class="">คิวลูกค้าเพื่อธุรกิจคุณ</h2>
+          <div class="ui huge secondary button">วิธีใช้... <i class="down arrow icon"></i></div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="ui vertical segment">
+          <h1 class="ui header">เข้าสู่ระบบ</h1>
+          <% if !params.valid? && params.errors[:session] %>
+            <div class="ui negative message">
+              <ul class="list">
+                <% params.error_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <% if params.env['warden'].message %>
+            <div class="ui negative message">
+              <i class="close icon"></i>
+              <div class="header"><%=params.env['warden'].message %></div>
+            </div>
+          <% end %>                    
+          <%=
+            form_for :session, routes.sessions_path, class: 'ui form' do
+              div class: 'ui error message'
+              div class: 'ui segment' do
+                div class: field_class(:session, :email) do
+                  div class: 'ui left icon input' do
+                    i class: 'user icon'
+                    text_field :email, placeholder: 'Email'
+                  end
+                end
+
+                div class: field_class(:session, :password) do
+                  div class: 'ui left icon input' do
+                    i class: 'lock icon'
+                    password_field :password, placeholder: 'Password'
+                  end
+                end
+                div class: 'control' do
+                  submit 'Log in', class: 'ui fluid large teal submit button', id: 'login-button'
+                end
+              end
+            end
+          %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
 <div class="ui vertical masthead center aligned inverted segment">
   <div class="ui text container">
     <h1 class="ui inverted orange header">EZ Queue</h1>
@@ -122,3 +184,4 @@
   </div>
 </div>
 <div class="ui vertical inverted segment"></div>
+-->

@@ -1,4 +1,5 @@
 <%= javascript 'home' %>
+<%= javascript 'close_icon' %>
 <style type="text/css">
   div.main-container {
     height: 100%
@@ -39,6 +40,7 @@
           <h1 class="ui header">เข้าสู่ระบบ</h1>
           <% if !params.valid? && params.errors[:session] %>
             <div class="ui negative message">
+              <i class="close icon"></i>
               <ul class="list">
                 <% params.error_messages.each do |message| %>
                   <li><%= message %></li>

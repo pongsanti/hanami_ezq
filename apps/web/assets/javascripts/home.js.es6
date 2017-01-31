@@ -25,7 +25,7 @@ $(() => {
           dataType: 'json'
         }, (data) => {
         if (data.duplicate) {
-          errorDiv.html(`${data.email} has already been taken`).show()
+          errorDiv.html(`<div class="header">${data.email} has already been taken</div>`).show()
         } else {
           errorDiv.hide()
         }
